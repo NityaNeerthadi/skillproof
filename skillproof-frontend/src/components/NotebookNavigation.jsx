@@ -3,15 +3,119 @@ import { Sparkle, HandDrawnUnderline } from './HandwrittenDoodles';
 import { useApp } from '../context/AppContext';
 
 export const NotebookNavigation = () => {
-  const { currentView, setCurrentView, activeRole, setActiveRole, currentUser, logout } = useApp();
+  const {
+    currentView,
+    setCurrentView,
+    currentUser,
+    logout,
+    studentTab,
+    setStudentTab,
+    setIsCreateJobOpen
+  } = useApp();
 
-  const navLinks = [
-    { id: 'journal', label: 'journal overview' },
-    { id: 'student-dash', label: 'students' },
-    { id: 'recruiter-dash', label: 'recruiters' },
-    { id: 'institution-dash', label: 'universities' },
-    { id: 'verify', label: 'verify certificate' }
-  ];
+  // Dedicated Role-Segregated Navigation
+  let navLinks = [];
+  let roleSubtitle = 'skills tell stories';
+
+  if (currentUser?.role === 'student') {
+    roleSubtitle = 'student study journal ✦';
+    navLinks = [
+      {
+        id: 'student-dash',
+        tab: 'jobs',
+        label: 'my journal',
+        onClick: () => {
+          setCurrentView('student-dash');
+          setStudentTab('jobs');
+        }
+      },
+      {
+        id: 'student-dash',
+        tab: 'skills',
+        label: 'verified skills',
+        onClick: () => {
+          setCurrentView('student-dash');
+          setStudentTab('skills');
+        }
+      },
+      {
+        id: 'student-dash',
+        tab: 'applications',
+        label: 'applications tracker',
+        onClick: () => {
+          setCurrentView('student-dash');
+          setStudentTab('applications');
+        }
+      },
+      {
+        id: 'verify',
+        label: 'verify certificate',
+        onClick: () => setCurrentView('verify')
+      }
+    ];
+  } else if (currentUser?.role === 'recruiter') {
+    roleSubtitle = 'recruiter talent journal ✦';
+    navLinks = [
+      {
+        id: 'recruiter-dash',
+        label: 'talent pipeline',
+        onClick: () => setCurrentView('recruiter-dash')
+      },
+      {
+        id: 'post-job',
+        label: '+ post new opening',
+        isAction: true,
+        onClick: () => setIsCreateJobOpen(true)
+      },
+      {
+        id: 'verify',
+        label: 'verify credentials',
+        onClick: () => setCurrentView('verify')
+      }
+    ];
+  } else if (currentUser?.role === 'admin' || currentUser?.role === 'institution') {
+    roleSubtitle = 'academic administration ✦';
+    navLinks = [
+      {
+        id: 'institution-dash',
+        label: 'cohort heatmap & analytics',
+        onClick: () => setCurrentView('institution-dash')
+      },
+      {
+        id: 'verify',
+        label: 'verify credentials',
+        onClick: () => setCurrentView('verify')
+      }
+    ];
+  } else {
+    // Unauthenticated Guest View
+    roleSubtitle = 'skills tell stories';
+    navLinks = [
+      {
+        id: 'journal',
+        label: 'journal overview',
+        onClick: () => setCurrentView('journal')
+      },
+      {
+        id: 'verify',
+        label: 'verify certificate',
+        onClick: () => setCurrentView('verify')
+      }
+    ];
+  }
+
+  const handleBrandClick = () => {
+    if (!currentUser) {
+      setCurrentView('journal');
+    } else if (currentUser.role === 'student') {
+      setCurrentView('student-dash');
+      setStudentTab('jobs');
+    } else if (currentUser.role === 'recruiter') {
+      setCurrentView('recruiter-dash');
+    } else {
+      setCurrentView('institution-dash');
+    }
+  };
 
   return (
     <header
@@ -33,7 +137,7 @@ export const NotebookNavigation = () => {
       >
         {/* Brand Wordmark in Cursive Handwriting */}
         <div
-          onClick={() => setCurrentView('journal')}
+          onClick={handleBrandClick}
           style={{
             cursor: 'pointer',
             display: 'inline-flex',
@@ -62,11 +166,11 @@ export const NotebookNavigation = () => {
               marginLeft: '2px'
             }}
           >
-            skills tell stories
+            {roleSubtitle}
           </span>
         </div>
 
-        {/* Main Navigation Items - Small & Refined */}
+        {/* Main Navigation Items - Segregated Strictly by Role */}
         <nav
           style={{
             display: 'flex',
@@ -75,11 +179,14 @@ export const NotebookNavigation = () => {
             flexWrap: 'wrap'
           }}
         >
-          {navLinks.map(link => {
-            const isActive = currentView === link.id;
+          {navLinks.map((link, idx) => {
+            const isActive = link.isAction
+              ? false
+              : currentView === link.id && (!link.tab || studentTab === link.tab);
+
             return (
               <div
-                key={link.id}
+                key={link.id + (link.tab || '') + idx}
                 style={{
                   position: 'relative',
                   paddingBottom: '2px'
@@ -87,12 +194,7 @@ export const NotebookNavigation = () => {
               >
                 <button
                   type="button"
-                  onClick={() => {
-                    setCurrentView(link.id);
-                    if (link.id === 'student-dash') setActiveRole('student');
-                    if (link.id === 'recruiter-dash') setActiveRole('recruiter');
-                    if (link.id === 'institution-dash') setActiveRole('institution');
-                  }}
+                  onClick={link.onClick}
                   style={{
                     background: 'none',
                     border: 'none',
@@ -142,25 +244,26 @@ export const NotebookNavigation = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '8px',
-                padding: '4px 10px',
+                gap: '10px',
+                padding: '4px 12px',
                 borderRadius: 'var(--radius-paper)',
                 backgroundColor: 'var(--paper-card)',
-                border: '1px solid rgba(108, 90, 115, 0.2)',
-                fontSize: '0.78rem'
+                border: '1px solid rgba(108, 90, 115, 0.22)',
+                fontSize: '1.12rem'
               }}
             >
-              <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>
+              <span style={{ fontWeight: 600, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 {currentUser.name || currentUser.email}
               </span>
               <span
                 style={{
-                  fontSize: '0.7rem',
-                  padding: '2px 6px',
+                  fontSize: '1.02rem',
+                  padding: '2px 8px',
                   backgroundColor: 'var(--lavender-pale)',
                   borderRadius: '3px',
                   color: 'var(--ink-deep)',
-                  fontWeight: 600
+                  fontWeight: 600,
+                  fontFamily: 'var(--font-handwriting)'
                 }}
               >
                 {currentUser.role}
@@ -174,7 +277,8 @@ export const NotebookNavigation = () => {
                   border: 'none',
                   color: 'var(--ink-muted)',
                   cursor: 'pointer',
-                  fontSize: '1.05rem',
+                  fontFamily: 'var(--font-handwriting)',
+                  fontSize: '1.12rem',
                   textDecoration: 'underline',
                   marginLeft: '4px'
                 }}
@@ -207,15 +311,26 @@ export const NotebookNavigation = () => {
               if (!currentUser) {
                 setCurrentView('login');
               } else {
-                if (currentUser.role === 'student') setCurrentView('student-dash');
-                else if (currentUser.role === 'recruiter') setCurrentView('recruiter-dash');
-                else setCurrentView('institution-dash');
+                if (currentUser.role === 'student') {
+                  setCurrentView('student-dash');
+                  setStudentTab('jobs');
+                } else if (currentUser.role === 'recruiter') {
+                  setCurrentView('recruiter-dash');
+                } else {
+                  setCurrentView('institution-dash');
+                }
               }
             }}
             className="notebook-btn notebook-btn-primary"
             style={{ padding: '6px 14px', fontSize: '1.15rem' }}
           >
-            {currentUser ? 'open journal →' : 'get started →'}
+            {currentUser
+              ? (currentUser.role === 'student'
+                  ? 'my journal →'
+                  : currentUser.role === 'recruiter'
+                  ? 'recruiter dash →'
+                  : 'admin analytics →')
+              : 'get started →'}
           </button>
         </div>
       </div>

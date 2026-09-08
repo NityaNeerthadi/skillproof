@@ -127,11 +127,23 @@ export const api = {
 
   // Institution Admin Endpoints
   admin: {
-    getAnalytics: () => request('/admin/analytics'),
-    verifyStudent: (verificationId) =>
-      request(`/admin/verify/${verificationId}`, {
-        method: 'POST'
-      })
+    getHeatmap: (params = {}) => {
+      const q = new URLSearchParams(params).toString();
+      return request(`/admin/heatmap${q ? `?${q}` : ''}`);
+    },
+    getFunnel: (params = {}) => {
+      const q = new URLSearchParams(params).toString();
+      return request(`/admin/funnel${q ? `?${q}` : ''}`);
+    },
+    verifyStudent: (studentId, payload = { is_verified: true, notes: 'Accredited by Institution' }) =>
+      request(`/admin/verify/student/${studentId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(payload)
+      }),
+    getNudges: (params = {}) => {
+      const q = new URLSearchParams(params).toString();
+      return request(`/admin/nudges${q ? `?${q}` : ''}`);
+    }
   }
 };
 

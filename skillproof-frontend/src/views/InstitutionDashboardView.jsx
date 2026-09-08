@@ -3,6 +3,7 @@ import { SmallCapsHeading, HandwrittenAnnotation, Highlighter } from '../compone
 import { NotebookButton } from '../components/NotebookButton';
 import { VerificationStamp } from '../components/VerificationStamp';
 import { PaperNote } from '../components/PaperNote';
+import { AnimatedNumber } from '../components/AnimatedNumber';
 import { useApp } from '../context/AppContext';
 
 export const InstitutionDashboardView = ({ onInspectCredential }) => {
@@ -42,7 +43,7 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
   };
 
   return (
-    <div className="institution-dashboard" style={{ paddingTop: '24px', paddingBottom: '70px' }}>
+    <div className="institution-dashboard notebook-view-transition" style={{ paddingTop: '24px', paddingBottom: '70px' }}>
       {/* Top Header */}
       <div
         style={{
@@ -85,38 +86,38 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
         }}
       >
         <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+          <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
             enrolled senior cohort
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
-            {cohortStats.totalStudents} students
+          <div style={{ fontSize: '2.0rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
+            <AnimatedNumber value={cohortStats.totalStudents} /> students
           </div>
         </div>
 
         <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+          <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
             verified academic profiles
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
-            {cohortStats.verifiedProfiles || 0} ({cohortStats.totalStudents ? Math.round(((cohortStats.verifiedProfiles || 0) / cohortStats.totalStudents) * 100) : 0}%)
+          <div style={{ fontSize: '2.0rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
+            <AnimatedNumber value={cohortStats.verifiedProfiles || 0} /> (<AnimatedNumber value={cohortStats.totalStudents ? Math.round(((cohortStats.verifiedProfiles || 0) / cohortStats.totalStudents) * 100) : 0} suffix="%" />)
           </div>
         </div>
 
         <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+          <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
             placed in industry
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
-            {cohortStats.placedStudents} students
+          <div style={{ fontSize: '2.0rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
+            <AnimatedNumber value={cohortStats.placedStudents} /> students
           </div>
         </div>
 
         <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+          <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
             active verified internships
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
-            {cohortStats.activeInternships}
+          <div style={{ fontSize: '2.0rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
+            <AnimatedNumber value={cohortStats.activeInternships} />
           </div>
         </div>
       </div>
@@ -173,22 +174,22 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
                   <div style={{ textAlign: 'right' }}>
                     <span
                       style={{
-                        fontFamily: 'var(--font-ui)',
-                        fontSize: '1.4rem',
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '1.6rem',
                         fontWeight: 700,
                         color: 'var(--ink-deep)',
                         lineHeight: 1
                       }}
                     >
-                      {item.percentMissing}%
+                      <AnimatedNumber value={item.percentMissing} suffix="%" />
                     </span>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--ink-muted)', display: 'block' }}>
+                    <span style={{ fontSize: '0.98rem', color: 'var(--ink-muted)', display: 'block', fontFamily: 'var(--font-handwriting)' }}>
                       lack skill
                     </span>
                   </div>
                 </div>
 
-                {/* Subtle muted bar */}
+                {/* Subtle muted bar with smooth width transition */}
                 <div
                   style={{
                     height: '8px',
@@ -204,7 +205,8 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
                       height: '100%',
                       width: `${item.percentMissing}%`,
                       backgroundColor: bg,
-                      borderRight: '2px solid rgba(94, 74, 104, 0.5)'
+                      borderRight: '2px solid rgba(94, 74, 104, 0.5)',
+                      transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                   />
                 </div>
@@ -238,13 +240,13 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
             }}
           >
             <div>
-              <span className="small-caps" style={{ fontSize: '0.78rem', color: 'var(--ink-muted)', display: 'block' }}>
+              <span className="small-caps" style={{ fontSize: '1.02rem', color: 'var(--ink-muted)', display: 'block', fontFamily: 'var(--font-handwriting)' }}>
                 step 01
               </span>
-              <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
+              <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 {cohortStats.placementFunnel?.applied || 0}
               </div>
-              <span className="small-caps" style={{ fontSize: '0.85rem', color: 'var(--ink-deep)' }}>
+              <span className="small-caps" style={{ fontSize: '1.1rem', color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 applications submitted
               </span>
             </div>
@@ -254,13 +256,13 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
             </span>
 
             <div>
-              <span className="small-caps" style={{ fontSize: '0.78rem', color: 'var(--ink-muted)', display: 'block' }}>
+              <span className="small-caps" style={{ fontSize: '1.02rem', color: 'var(--ink-muted)', display: 'block', fontFamily: 'var(--font-handwriting)' }}>
                 step 02
               </span>
-              <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
+              <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 {cohortStats.placementFunnel?.shortlisted || 0}
               </div>
-              <span className="small-caps" style={{ fontSize: '0.85rem', color: 'var(--ink-deep)' }}>
+              <span className="small-caps" style={{ fontSize: '1.1rem', color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 candidates shortlisted
               </span>
             </div>
@@ -270,13 +272,13 @@ export const InstitutionDashboardView = ({ onInspectCredential }) => {
             </span>
 
             <div>
-              <span className="small-caps" style={{ fontSize: '0.78rem', color: 'var(--ink-muted)', display: 'block' }}>
+              <span className="small-caps" style={{ fontSize: '1.02rem', color: 'var(--ink-muted)', display: 'block', fontFamily: 'var(--font-handwriting)' }}>
                 step 03
               </span>
-              <div style={{ fontSize: '2.2rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
+              <div style={{ fontSize: '2.4rem', fontWeight: 700, color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 {cohortStats.placementFunnel?.placed || 0}
               </div>
-              <span className="small-caps" style={{ fontSize: '0.85rem', color: 'var(--ink-deep)' }}>
+              <span className="small-caps" style={{ fontSize: '1.1rem', color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 verified placed in industry
               </span>
             </div>

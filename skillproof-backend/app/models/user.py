@@ -54,6 +54,33 @@ class User(Base):
         nullable=True,
         index=True
     )
+    name: Mapped[Optional[str]] = mapped_column(
+        String(150),
+        nullable=True
+    )
+    department: Mapped[Optional[str]] = mapped_column(
+        String(100),
+        nullable=True,
+        default="Computer Science & Engineering"
+    )
+    batch: Mapped[Optional[str]] = mapped_column(
+        String(50),
+        nullable=True,
+        default="2026"
+    )
+    is_verified: Mapped[bool] = mapped_column(
+        Boolean,
+        default=False,
+        nullable=False
+    )
+    verification_notes: Mapped[Optional[str]] = mapped_column(
+        String(500),
+        nullable=True
+    )
+    verified_at: Mapped[Optional[datetime]] = mapped_column(
+        DateTime(timezone=True),
+        nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),

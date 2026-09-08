@@ -326,18 +326,18 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
         <PaperNote tape style={{ maxWidth: '780px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px', borderBottom: '1px dashed rgba(108, 90, 115, 0.18)', paddingBottom: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span className="small-caps" style={{ fontSize: '0.85rem', color: 'var(--ink-deep)' }}>
+              <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 github account:
               </span>
-              <span style={{ fontFamily: 'monospace', fontSize: '0.9rem', color: 'var(--ink-primary)', fontWeight: 600 }}>
+              <span style={{ fontFamily: 'var(--font-handwriting)', fontSize: '1.15rem', color: 'var(--ink-primary)', fontWeight: 700 }}>
                 @{currentStudent.githubUsername}
               </span>
-              <span style={{ fontSize: '0.75rem', padding: '2px 8px', borderRadius: '3px', backgroundColor: 'var(--lavender-pale)', color: 'var(--ink-deep)', fontWeight: 600 }}>
+              <span style={{ fontSize: '1.0rem', padding: '2px 8px', borderRadius: '3px', backgroundColor: 'var(--lavender-pale)', color: 'var(--ink-deep)', fontWeight: 600, fontFamily: 'var(--font-handwriting)' }}>
                 ✓ verified
               </span>
             </div>
 
-            <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+            <span className="small-caps" style={{ fontSize: '1.02rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
               38 repositories analyzed
             </span>
           </div>
@@ -438,10 +438,10 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontFamily: 'var(--font-ui)',
+                    fontFamily: 'var(--font-handwriting)',
                     fontWeight: 700,
                     color: 'var(--ink-deep)',
-                    fontSize: '1.1rem'
+                    fontSize: '1.35rem'
                   }}
                 >
                   {currentStudent.avatarInitials}
@@ -450,8 +450,8 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                 <div>
                   <h3
                     style={{
-                      fontFamily: 'var(--font-ui)',
-                      fontSize: '1.6rem',
+                      fontFamily: 'var(--font-handwriting)',
+                      fontSize: '1.85rem',
                       fontWeight: 700,
                       color: 'var(--ink-deep)',
                       lineHeight: 1.15
@@ -459,7 +459,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                   >
                     {currentStudent.name}
                   </h3>
-                  <div className="small-caps" style={{ fontSize: '0.8rem', color: 'var(--ink-muted)' }}>
+                  <div className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
                     {currentStudent.degree} · {currentStudent.university}
                   </div>
                 </div>

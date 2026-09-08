@@ -3,6 +3,7 @@ import { SmallCapsHeading, HandwrittenAnnotation } from '../components/Typograph
 import { NotebookButton } from '../components/NotebookButton';
 import { SkillBadge } from '../components/SkillBadge';
 import { PaperNote } from '../components/PaperNote';
+import { AnimatedNumber } from '../components/AnimatedNumber';
 import { useApp } from '../context/AppContext';
 
 export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
@@ -23,7 +24,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
   });
 
   return (
-    <div className="recruiter-dashboard" style={{ paddingTop: '24px', paddingBottom: '70px' }}>
+    <div className="recruiter-dashboard notebook-view-transition" style={{ paddingTop: '24px', paddingBottom: '70px' }}>
       {/* Top Header */}
       <div
         style={{
@@ -68,7 +69,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
             active job postings
           </span>
           <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
-            {jobs.length}
+            <AnimatedNumber value={jobs.length} />
           </div>
         </div>
 
@@ -77,7 +78,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
             total applicants received
           </span>
           <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
-            {applications.length}
+            <AnimatedNumber value={applications.length} />
           </div>
         </div>
 
@@ -86,7 +87,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
             ready now (100% matched)
           </span>
           <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
-            {applications.filter(a => a.matchPercentage === 100).length}
+            <AnimatedNumber value={applications.filter(a => a.matchPercentage === 100).length} />
           </div>
         </div>
 
@@ -95,7 +96,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
             shortlisted candidates
           </span>
           <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
-            {applications.filter(a => a.status === 'shortlisted').length}
+            <AnimatedNumber value={applications.filter(a => a.status === 'shortlisted').length} />
           </div>
         </div>
       </div>
@@ -222,7 +223,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
                           lineHeight: 1
                         }}
                       >
-                        {app.matchPercentage}%
+                        <AnimatedNumber value={app.matchPercentage} suffix="%" />
                       </span>
                     </div>
 

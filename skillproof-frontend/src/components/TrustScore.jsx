@@ -1,5 +1,6 @@
 import React from 'react';
 import { HandwrittenAnnotation } from './Typography';
+import { AnimatedNumber } from './AnimatedNumber';
 
 export const TrustScore = ({
   score = 87,
@@ -21,10 +22,11 @@ export const TrustScore = ({
       <span
         className="small-caps"
         style={{
-          fontSize: '0.78rem',
+          fontSize: '1.15rem',
           color: 'var(--ink-muted)',
-          letterSpacing: '0.12em',
-          marginBottom: '4px'
+          letterSpacing: '0.04em',
+          marginBottom: '4px',
+          fontFamily: 'var(--font-handwriting)'
         }}
       >
         trust score
@@ -36,7 +38,7 @@ export const TrustScore = ({
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '6px 14px',
+            padding: '4px 14px',
             backgroundColor: 'var(--paper-card)',
             border: '1.5px solid rgba(108, 90, 115, 0.3)',
             borderRadius: '4px',
@@ -45,21 +47,21 @@ export const TrustScore = ({
         >
           <span
             style={{
-              fontFamily: 'var(--font-ui)',
-              fontSize: '1.6rem',
+              fontFamily: 'var(--font-handwriting)',
+              fontSize: '2.1rem',
               fontWeight: 700,
               color: 'var(--ink-deep)',
               lineHeight: 1
             }}
           >
-            {score}
+            <AnimatedNumber value={score} />
           </span>
           <span
             style={{
-              fontFamily: 'var(--font-ui)',
-              fontSize: '0.95rem',
+              fontFamily: 'var(--font-handwriting)',
+              fontSize: '1.3rem',
               color: 'var(--ink-muted)',
-              marginLeft: '4px'
+              marginLeft: '6px'
             }}
           >
             / {maxScore}
@@ -67,7 +69,7 @@ export const TrustScore = ({
         </div>
 
         {showAnnotation && (
-          <HandwrittenAnnotation style={{ fontSize: '1.05rem', color: 'var(--ink-primary)' }}>
+          <HandwrittenAnnotation style={{ fontSize: '1.18rem', color: 'var(--ink-primary)' }}>
             verified academic profile ✦
           </HandwrittenAnnotation>
         )}

@@ -84,8 +84,8 @@ export const CertificateModal = ({ credential, onClose }) => {
 
           <h3
             style={{
-              fontFamily: 'var(--font-ui)',
-              fontSize: '1.5rem',
+              fontFamily: 'var(--font-handwriting)',
+              fontSize: '1.85rem',
               fontWeight: 700,
               color: 'var(--ink-deep)',
               marginBottom: '12px'
@@ -94,7 +94,7 @@ export const CertificateModal = ({ credential, onClose }) => {
             {credential.candidateName || 'Verified Scholar'}
           </h3>
 
-          <p style={{ fontSize: '0.92rem', color: 'var(--ink-body)', marginBottom: '16px' }}>
+          <p style={{ fontSize: '1.15rem', color: 'var(--ink-body)', marginBottom: '16px', fontFamily: 'var(--font-handwriting)' }}>
             has demonstrated verified proficiency in{' '}
             <span style={{ fontWeight: 700, color: 'var(--ink-deep)' }}>
               {credential.title}
@@ -112,30 +112,30 @@ export const CertificateModal = ({ credential, onClose }) => {
               marginBottom: '24px'
             }}
           >
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '0.84rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', fontSize: '1.05rem', fontFamily: 'var(--font-handwriting)' }}>
               <div>
-                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block' }}>
+                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '1.0rem' }}>
                   credential id
                 </span>
                 <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>{credential.id}</span>
               </div>
 
               <div>
-                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block' }}>
+                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '1.0rem' }}>
                   issued date
                 </span>
                 <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>{credential.issueDate}</span>
               </div>
 
               <div>
-                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block' }}>
+                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '1.0rem' }}>
                   issuing authority
                 </span>
                 <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>{credential.issuer}</span>
               </div>
 
               <div>
-                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block' }}>
+                <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '1.0rem' }}>
                   audit protocol
                 </span>
                 <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>Deterministic Git + Exam</span>
@@ -144,13 +144,13 @@ export const CertificateModal = ({ credential, onClose }) => {
 
             {/* SHA-256 Hash */}
             <div style={{ marginTop: '14px', paddingTop: '10px', borderTop: '1px dashed rgba(108, 90, 115, 0.15)' }}>
-              <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '0.74rem' }}>
+              <span className="small-caps" style={{ color: 'var(--ink-muted)', display: 'block', fontSize: '0.98rem' }}>
                 cryptographic sha-256 integrity hash
               </span>
               <code
                 style={{
-                  fontFamily: 'monospace',
-                  fontSize: '0.72rem',
+                  fontFamily: 'var(--font-handwriting)',
+                  fontSize: '1.02rem',
                   color: 'var(--ink-primary)',
                   wordBreak: 'break-all',
                   display: 'block',

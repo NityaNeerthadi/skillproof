@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppProvider, useApp } from './context/AppContext';
 import { NotebookBackground } from './components/NotebookBackground';
 import { NotebookNavigation } from './components/NotebookNavigation';
@@ -14,56 +14,69 @@ import { JobApplyModal } from './views/JobApplyModal';
 import { CreateJobModal } from './views/CreateJobModal';
 
 function AppContent() {
-  const { currentView } = useApp();
+  const { currentView, setCurrentView, currentUser, isCreateJobOpen, setIsCreateJobOpen } = useApp();
 
   // Global Modal States
   const [isGithubModalOpen, setIsGithubModalOpen] = useState(false);
-  const [isCreateJobOpen, setIsCreateJobOpen] = useState(false);
   const [selectedJobToApply, setSelectedJobToApply] = useState(null);
   const [inspectedCredential, setInspectedCredential] = useState(null);
+
+  // Role Protection: Ensure users only see their designated role views
+  useEffect(() => {
+    if (!currentUser) return;
+    if (currentUser.role === 'student' && (currentView === 'recruiter-dash' || currentView === 'institution-dash')) {
+      setCurrentView('student-dash');
+    } else if (currentUser.role === 'recruiter' && (currentView === 'student-dash' || currentView === 'institution-dash')) {
+      setCurrentView('recruiter-dash');
+    } else if ((currentUser.role === 'admin' || currentUser.role === 'institution') && (currentView === 'student-dash' || currentView === 'recruiter-dash')) {
+      setCurrentView('institution-dash');
+    }
+  }, [currentUser, currentView, setCurrentView]);
 
   return (
     <NotebookBackground>
       {/* Stationery Notebook Header Navigation */}
       <NotebookNavigation />
 
-      {/* Render active view inside the same continuous notebook */}
-      {currentView === 'journal' && (
-        <LandingJournalView
-          onOpenGithubAudit={() => setIsGithubModalOpen(true)}
-          onInspectCredential={(cred) => setInspectedCredential(cred)}
-          onOpenJobApply={(job) => setSelectedJobToApply(job)}
-        />
-      )}
+      {/* Render active view with smooth transition */}
+      <div key={currentView} className="notebook-view-transition">
+        {currentView === 'journal' && (
+          <LandingJournalView
+            onOpenGithubAudit={() => setIsGithubModalOpen(true)}
+            onInspectCredential={(cred) => setInspectedCredential(cred)}
+            onOpenJobApply={(job) => setSelectedJobToApply(job)}
+          />
+        )}
 
-      {currentView === 'student-dash' && (
-        <StudentDashboardView
-          onOpenGithubAudit={() => setIsGithubModalOpen(true)}
-          onOpenJobApply={(job) => setSelectedJobToApply(job)}
-        />
-      )}
+        {currentView === 'student-dash' && (
+          <StudentDashboardView
+            onOpenGithubAudit={() => setIsGithubModalOpen(true)}
+            onOpenJobApply={(job) => setSelectedJobToApply(job)}
+          />
+        )}
 
-      {currentView === 'recruiter-dash' && (
-        <RecruiterDashboardView
-          onOpenCreateJob={() => setIsCreateJobOpen(true)}
-        />
-      )}
+        {currentView === 'recruiter-dash' && (
+          <RecruiterDashboardView
+            onOpenCreateJob={() => setIsCreateJobOpen(true)}
+          />
+        )}
 
-      {currentView === 'institution-dash' && (
-        <InstitutionDashboardView
-          onInspectCredential={(cred) => setInspectedCredential(cred)}
-        />
-      )}
+        {currentView === 'institution-dash' && (
+          <InstitutionDashboardView
+            onInspectCredential={(cred) => setInspectedCredential(cred)}
+          />
+        )}
 
-      {currentView === 'verify' && (
-        <CertificateVerifierView
-          onInspectCredential={(cred) => setInspectedCredential(cred)}
-        />
-      )}
+        {currentView === 'verify' && (
+          <CertificateVerifierView
+            onInspectCredential={(cred) => setInspectedCredential(cred)}
+          />
+        )}
 
-      {currentView === 'login' && (
-        <LoginPageView />
-      )}
+        {currentView === 'login' && (
+          <LoginPageView />
+        )}
+      </div>
 
       {/* Global Stationery Modals */}
       <GithubAuditModal

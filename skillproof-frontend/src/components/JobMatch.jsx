@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SmallCapsHeading, HandwrittenAnnotation, Highlighter } from './Typography';
 import { NotebookButton } from './NotebookButton';
 import { SkillBadge } from './SkillBadge';
+import { AnimatedNumber } from './AnimatedNumber';
 import { useApp } from '../context/AppContext';
 
 export const JobMatch = ({
@@ -76,21 +77,22 @@ export const JobMatch = ({
             <span
               className="small-caps"
               style={{
-                fontSize: '0.74rem',
+                fontSize: '1.05rem',
                 color: 'var(--ink-muted)',
-                letterSpacing: '0.12em'
+                letterSpacing: '0.04em',
+                fontFamily: 'var(--font-handwriting)'
               }}
             >
               {job.company} · {job.location}
             </span>
             <span
               style={{
-                fontSize: '0.74rem',
-                padding: '1px 6px',
+                fontSize: '1.0rem',
+                padding: '2px 8px',
                 borderRadius: '3px',
                 backgroundColor: 'var(--lavender-pale)',
                 color: 'var(--ink-deep)',
-                fontFamily: 'var(--font-ui)',
+                fontFamily: 'var(--font-handwriting)',
                 fontWeight: 600
               }}
             >
@@ -101,9 +103,10 @@ export const JobMatch = ({
           <h3
             className="small-caps"
             style={{
-              fontSize: '1.25rem',
+              fontSize: '1.45rem',
               color: 'var(--ink-deep)',
-              lineHeight: 1.2
+              lineHeight: 1.2,
+              fontFamily: 'var(--font-handwriting)'
             }}
           >
             {job.title}
@@ -111,10 +114,11 @@ export const JobMatch = ({
 
           <div
             style={{
-              fontSize: '0.85rem',
+              fontSize: '1.15rem',
               color: 'var(--ink-primary)',
-              fontWeight: 500,
-              marginTop: '4px'
+              fontWeight: 600,
+              marginTop: '4px',
+              fontFamily: 'var(--font-handwriting)'
             }}
           >
             {job.stipend}
@@ -126,10 +130,11 @@ export const JobMatch = ({
           <span
             className="small-caps"
             style={{
-              fontSize: '0.72rem',
+              fontSize: '1.05rem',
               color: 'var(--ink-muted)',
-              letterSpacing: '0.12em',
-              display: 'block'
+              letterSpacing: '0.04em',
+              display: 'block',
+              fontFamily: 'var(--font-handwriting)'
             }}
           >
             match score
@@ -137,24 +142,24 @@ export const JobMatch = ({
           <div style={{ display: 'inline-flex', alignItems: 'baseline', gap: '4px' }}>
             <span
               style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize: '1.8rem',
+                fontFamily: 'var(--font-handwriting)',
+                fontSize: '2.4rem',
                 fontWeight: 700,
                 color: dynamicPercentage === 100 ? 'var(--ink-deep)' : 'var(--ink-primary)',
                 lineHeight: 1
               }}
             >
-              {dynamicPercentage}%
+              <AnimatedNumber value={dynamicPercentage} suffix="%" />
             </span>
             {dynamicPercentage === 100 && (
-              <span style={{ color: 'var(--ink-deep)', fontSize: '1.1rem' }}>✓</span>
+              <span style={{ color: 'var(--ink-deep)', fontSize: '1.3rem' }}>✓</span>
             )}
           </div>
           <div
             style={{
-              fontSize: '0.72rem',
+              fontSize: '1.05rem',
               color: 'var(--ink-muted)',
-              fontFamily: 'var(--font-ui)'
+              fontFamily: 'var(--font-handwriting)'
             }}
           >
             {matchedSkills.length + extraCheckedCount} of {totalRequired} skills matched
@@ -164,10 +169,11 @@ export const JobMatch = ({
 
       <p
         style={{
-          fontSize: '0.88rem',
+          fontSize: '1.12rem',
           color: 'var(--ink-body)',
           marginBottom: '20px',
-          lineHeight: 1.5
+          lineHeight: 1.5,
+          fontFamily: 'var(--font-handwriting)'
         }}
       >
         {job.description}
@@ -178,17 +184,18 @@ export const JobMatch = ({
         <div
           className="small-caps"
           style={{
-            fontSize: '0.76rem',
+            fontSize: '1.1rem',
             color: 'var(--ink-muted)',
-            letterSpacing: '0.1em',
+            letterSpacing: '0.04em',
             marginBottom: '8px',
             display: 'flex',
             alignItems: 'center',
-            gap: '6px'
+            gap: '6px',
+            fontFamily: 'var(--font-handwriting)'
           }}
         >
           <span>✓ verified skills you have</span>
-          <span style={{ fontSize: '0.75rem', opacity: 0.8 }}>({matchedSkills.length})</span>
+          <span style={{ fontSize: '1.05rem', opacity: 0.85 }}>({matchedSkills.length})</span>
         </div>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -226,21 +233,22 @@ export const JobMatch = ({
             <div
               className="small-caps"
               style={{
-                fontSize: '0.76rem',
+                fontSize: '1.1rem',
                 color: 'var(--ink-deep)',
-                letterSpacing: '0.1em',
+                letterSpacing: '0.04em',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '6px'
+                gap: '6px',
+                fontFamily: 'var(--font-handwriting)'
               }}
             >
               <span>△ skill gap checklist</span>
-              <span style={{ fontSize: '0.75rem', color: 'var(--ink-muted)' }}>
+              <span style={{ fontSize: '1.02rem', color: 'var(--ink-muted)' }}>
                 ({missingSkills.length} missing)
               </span>
             </div>
 
-            <HandwrittenAnnotation style={{ fontSize: '1.05rem', color: 'var(--ink-primary)' }}>
+            <HandwrittenAnnotation style={{ fontSize: '1.15rem', color: 'var(--ink-primary)' }}>
               almost there →
             </HandwrittenAnnotation>
           </div>
@@ -275,7 +283,7 @@ export const JobMatch = ({
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <Highlighter variant={isChecked ? 'lavender' : 'butter'}>
-                        <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{skill.name}</span>
+                        <span style={{ fontWeight: 600, fontSize: '1.12rem', fontFamily: 'var(--font-handwriting)' }}>{skill.name}</span>
                       </Highlighter>
 
                       {course && (
@@ -284,10 +292,11 @@ export const JobMatch = ({
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
-                            fontSize: '0.78rem',
+                            fontSize: '1.05rem',
                             color: 'var(--ink-primary)',
                             textDecoration: 'none',
-                            borderBottom: '1px dashed var(--ink-primary)'
+                            borderBottom: '1px dashed var(--ink-primary)',
+                            fontFamily: 'var(--font-handwriting)'
                           }}
                           onClick={(e) => {
                             if (onOpenCourse) {

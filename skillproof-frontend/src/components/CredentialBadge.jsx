@@ -30,9 +30,10 @@ export const CredentialBadge = ({
         <span
           className="small-caps"
           style={{
-            fontSize: '0.72rem',
+            fontSize: '1.02rem',
             color: 'var(--ink-muted)',
-            letterSpacing: '0.1em'
+            letterSpacing: '0.04em',
+            fontFamily: 'var(--font-handwriting)'
           }}
         >
           {id}
@@ -42,10 +43,11 @@ export const CredentialBadge = ({
       <h4
         className="small-caps"
         style={{
-          fontSize: '1rem',
+          fontSize: '1.25rem',
           color: 'var(--ink-deep)',
           marginBottom: '6px',
-          lineHeight: 1.3
+          lineHeight: 1.3,
+          fontFamily: 'var(--font-handwriting)'
         }}
       >
         {title}
@@ -53,10 +55,11 @@ export const CredentialBadge = ({
 
       <p
         style={{
-          fontSize: '0.85rem',
+          fontSize: '1.08rem',
           color: 'var(--ink-muted)',
           marginBottom: '12px',
-          lineHeight: 1.4
+          lineHeight: 1.4,
+          fontFamily: 'var(--font-handwriting)'
         }}
       >
         {issuer} · <span style={{ opacity: 0.85 }}>{issueDate}</span>
@@ -76,8 +79,8 @@ export const CredentialBadge = ({
             display: 'inline-flex',
             alignItems: 'center',
             gap: '4px',
-            fontSize: '0.78rem',
-            fontFamily: 'var(--font-ui)',
+            fontSize: '1.05rem',
+            fontFamily: 'var(--font-handwriting)',
             color: 'var(--ink-primary)',
             fontWeight: 600
           }}
@@ -89,7 +92,7 @@ export const CredentialBadge = ({
           className="view-credential-cta"
           style={{
             fontFamily: 'var(--font-handwriting)',
-            fontSize: '1.05rem',
+            fontSize: '1.15rem',
             color: 'var(--ink-deep)',
             fontWeight: 600
           }}

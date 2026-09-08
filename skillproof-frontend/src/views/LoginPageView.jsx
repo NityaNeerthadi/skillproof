@@ -19,6 +19,24 @@ export const LoginPageView = () => {
   const [formError, setFormError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleDemoFill = (roleKey) => {
+    setFormError(null);
+    setMode('login');
+    if (roleKey === 'admin' || roleKey === 'institution') {
+      setSelectedRole('institution');
+      setEmail('dean.cse@university.edu');
+      setPassword('Password123!');
+    } else if (roleKey === 'recruiter') {
+      setSelectedRole('recruiter');
+      setEmail('recruiter@acme.com');
+      setPassword('Password123!');
+    } else {
+      setSelectedRole('student');
+      setEmail('kunjshah4456@gmail.com');
+      setPassword('12345678');
+    }
+  };
+
   // ==========================================================================
   // ASYNC AUTHENTICATION (POST /api/v1/auth/login)
   // ==========================================================================
@@ -35,10 +53,11 @@ export const LoginPageView = () => {
         setTempToken(result.tempToken);
         setMode('2fa');
       } else {
-        // Direct successful login -> route to appropriate dashboard
-        if (selectedRole === 'student') setCurrentView('student-dash');
-        else if (selectedRole === 'recruiter') setCurrentView('recruiter-dash');
-        else setCurrentView('institution-dash');
+        // Direct successful login -> route to appropriate dashboard based on returned user role
+        const role = result.user?.role || (selectedRole === 'institution' ? 'admin' : selectedRole);
+        if (role === 'admin' || role === 'institution') setCurrentView('institution-dash');
+        else if (role === 'recruiter') setCurrentView('recruiter-dash');
+        else setCurrentView('student-dash');
       }
     } catch (err) {
       setFormError(err.message || 'Authentication failed. Please verify your credentials.');
@@ -56,15 +75,16 @@ export const LoginPageView = () => {
     setIsSubmitting(true);
 
     try {
-      await verify2FAAsync({
+      const result = await verify2FAAsync({
         tempToken,
         totpCode: totpCode.trim()
       });
 
-      // Verification successful -> route to appropriate dashboard
-      if (selectedRole === 'student') setCurrentView('student-dash');
-      else if (selectedRole === 'recruiter') setCurrentView('recruiter-dash');
-      else setCurrentView('institution-dash');
+      // Verification successful -> route to appropriate dashboard based on user role
+      const role = result?.user?.role || (selectedRole === 'institution' ? 'admin' : selectedRole);
+      if (role === 'admin' || role === 'institution') setCurrentView('institution-dash');
+      else if (role === 'recruiter') setCurrentView('recruiter-dash');
+      else setCurrentView('student-dash');
     } catch (err) {
       setFormError(err.message || 'Invalid two-factor code. Please check your authenticator app.');
     } finally {
@@ -178,9 +198,14 @@ export const LoginPageView = () => {
               <strong style={{ display: 'block', fontSize: '0.78rem', color: 'var(--ink-deep)' }}>
                 △ Notice
               </strong>
-              {typeof (formError || apiError) === 'string'
-                ? (formError || apiError)
-                : JSON.stringify(formError || apiError)}
+              <div>
+                {typeof (formError || apiError) === 'string'
+                  ? (formError || apiError)
+                  : JSON.stringify(formError || apiError)}
+              </div>
+              <div style={{ marginTop: '6px', fontSize: '0.76rem', color: 'var(--ink-muted)' }}>
+                Tip: Click one of the 1-click demo buttons below to fill working test credentials.
+              </div>
             </div>
           )}
 
@@ -246,8 +271,8 @@ export const LoginPageView = () => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: '0.78rem',
+                    fontFamily: 'var(--font-handwriting)',
+                    fontSize: '1.08rem',
                     color: 'var(--ink-muted)',
                     cursor: 'pointer',
                     textDecoration: 'underline'
@@ -341,15 +366,15 @@ export const LoginPageView = () => {
                       type="button"
                       onClick={() => setSelectedRole(r.id)}
                       style={{
-                        padding: '5px 8px',
+                        padding: '6px 10px',
                         borderRadius: '4px',
                         border: selectedRole === r.id ? '1px solid var(--ink-deep)' : '1px solid rgba(108, 90, 115, 0.2)',
                         backgroundColor: selectedRole === r.id ? 'var(--lavender-pale)' : 'var(--paper-card)',
                         color: selectedRole === r.id ? 'var(--ink-deep)' : 'var(--ink-muted)',
                         cursor: 'pointer',
-                        fontFamily: 'var(--font-ui)',
-                        fontSize: '0.76rem',
-                        fontWeight: selectedRole === r.id ? 600 : 400,
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '1.08rem',
+                        fontWeight: selectedRole === r.id ? 700 : 500,
                         textAlign: 'center',
                         transition: 'all var(--transition-calm)'
                       }}
@@ -360,11 +385,94 @@ export const LoginPageView = () => {
                 </div>
               </div>
 
+              {/* Quick 1-Click Demo Logins */}
+              <div
+                style={{
+                  marginBottom: '18px',
+                  padding: '10px 12px',
+                  backgroundColor: 'rgba(235, 230, 240, 0.5)',
+                  borderRadius: '6px',
+                  border: '1px dashed rgba(108, 90, 115, 0.3)'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-handwriting)',
+                      fontSize: '1.02rem',
+                      fontWeight: 600,
+                      color: 'var(--ink-deep)'
+                    }}
+                  >
+                    quick demo accounts (1-click autofill):
+                  </span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '6px' }}>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoFill('student')}
+                    style={{
+                      padding: '6px 4px',
+                      borderRadius: '4px',
+                      border: '1px solid rgba(108, 90, 115, 0.25)',
+                      backgroundColor: 'var(--paper-card)',
+                      color: 'var(--ink-deep)',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-handwriting)',
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      textAlign: 'center'
+                    }}
+                  >
+                    🎓 student
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoFill('recruiter')}
+                    style={{
+                      padding: '6px 4px',
+                      borderRadius: '4px',
+                      border: '1px solid rgba(108, 90, 115, 0.25)',
+                      backgroundColor: 'var(--paper-card)',
+                      color: 'var(--ink-deep)',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-handwriting)',
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      textAlign: 'center'
+                    }}
+                  >
+                    💼 recruiter
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDemoFill('institution')}
+                    style={{
+                      padding: '6px 4px',
+                      borderRadius: '4px',
+                      border: '1px solid rgba(108, 90, 115, 0.25)',
+                      backgroundColor: 'var(--paper-card)',
+                      color: 'var(--ink-deep)',
+                      cursor: 'pointer',
+                      fontFamily: 'var(--font-handwriting)',
+                      fontSize: '1.05rem',
+                      fontWeight: 600,
+                      textAlign: 'center'
+                    }}
+                  >
+                    🏛️ admin
+                  </button>
+                </div>
+                <div style={{ marginTop: '6px', fontSize: '0.74rem', color: 'var(--ink-muted)', textAlign: 'center' }}>
+                  Student: <em>kunjshah4456@gmail.com</em> • Admin: <em>dean.cse@university.edu</em>
+                </div>
+              </div>
+
               {/* Standard Form */}
               <form onSubmit={mode === 'login' ? handleLogin : handleRegister}>
                 {mode === 'register' && (
                   <div style={{ marginBottom: '12px' }}>
-                    <label style={{ display: 'block', fontSize: '0.74rem', color: 'var(--ink-muted)', marginBottom: '3px' }}>
+                    <label style={{ display: 'block', fontSize: '1.05rem', color: 'var(--ink-muted)', marginBottom: '3px', fontFamily: 'var(--font-handwriting)' }}>
                       full legal name *
                     </label>
                     <input
@@ -379,7 +487,7 @@ export const LoginPageView = () => {
                 )}
 
                 <div style={{ marginBottom: '12px' }}>
-                  <label style={{ display: 'block', fontSize: '0.74rem', color: 'var(--ink-muted)', marginBottom: '3px' }}>
+                  <label style={{ display: 'block', fontSize: '1.05rem', color: 'var(--ink-muted)', marginBottom: '3px', fontFamily: 'var(--font-handwriting)' }}>
                     {selectedRole === 'student'
                       ? 'university email (.edu / official) *'
                       : selectedRole === 'recruiter'
@@ -398,7 +506,7 @@ export const LoginPageView = () => {
 
                 {mode === 'register' && (
                   <div style={{ marginBottom: '12px' }}>
-                    <label style={{ display: 'block', fontSize: '0.74rem', color: 'var(--ink-muted)', marginBottom: '3px' }}>
+                    <label style={{ display: 'block', fontSize: '1.05rem', color: 'var(--ink-muted)', marginBottom: '3px', fontFamily: 'var(--font-handwriting)' }}>
                       {selectedRole === 'student' || selectedRole === 'institution'
                         ? 'university or institution name *'
                         : 'company organization name *'}
@@ -415,7 +523,7 @@ export const LoginPageView = () => {
                 )}
 
                 <div style={{ marginBottom: '18px' }}>
-                  <label style={{ display: 'block', fontSize: '0.74rem', color: 'var(--ink-muted)', marginBottom: '3px' }}>
+                  <label style={{ display: 'block', fontSize: '1.05rem', color: 'var(--ink-muted)', marginBottom: '3px', fontFamily: 'var(--font-handwriting)' }}>
                     access key / password *
                   </label>
                   <input
@@ -432,7 +540,7 @@ export const LoginPageView = () => {
                   type="submit"
                   variant="primary"
                   disabled={isSubmitting}
-                  style={{ width: '100%', padding: '9px', fontSize: '0.84rem' }}
+                  style={{ width: '100%', padding: '9px', fontSize: '1.15rem' }}
                 >
                   {isSubmitting
                     ? 'connecting to API...'

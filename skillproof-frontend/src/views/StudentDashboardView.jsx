@@ -5,6 +5,7 @@ import { SkillBadge } from '../components/SkillBadge';
 import { JobMatch } from '../components/JobMatch';
 import { PaperNote } from '../components/PaperNote';
 import { TrustScore } from '../components/TrustScore';
+import { AnimatedNumber } from '../components/AnimatedNumber';
 import { Sparkle } from '../components/HandwrittenDoodles';
 import { useApp } from '../context/AppContext';
 
@@ -21,10 +22,11 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
     removeStudentSkill,
     updateSkillProficiency,
     setCurrentView,
-    loading
+    loading,
+    studentTab,
+    setStudentTab
   } = useApp();
 
-  const [activeTab, setActiveTab] = useState('jobs'); // 'jobs' | 'skills' | 'applications'
   const [selectedCategory, setSelectedCategory] = useState('Backend');
   const [proficiencyDraft, setProficiencyDraft] = useState('intermediate');
 
@@ -128,64 +130,64 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
       >
         <button
           type="button"
-          onClick={() => setActiveTab('jobs')}
+          onClick={() => setStudentTab('jobs')}
           style={{
             background: 'none',
             border: 'none',
             cursor: 'pointer',
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
-            color: activeTab === 'jobs' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'jobs' ? 700 : 500,
-            borderBottom: activeTab === 'jobs' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            color: studentTab === 'jobs' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: studentTab === 'jobs' ? 700 : 500,
+            borderBottom: studentTab === 'jobs' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
         >
-          target roles & gaps ({jobs.length})
+          target roles & gaps (<AnimatedNumber value={jobs.length} />)
         </button>
 
         <button
           type="button"
-          onClick={() => setActiveTab('skills')}
+          onClick={() => setStudentTab('skills')}
           style={{
             background: 'none',
             border: 'none',
             cursor: 'pointer',
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
-            color: activeTab === 'skills' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'skills' ? 700 : 500,
-            borderBottom: activeTab === 'skills' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            color: studentTab === 'skills' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: studentTab === 'skills' ? 700 : 500,
+            borderBottom: studentTab === 'skills' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
         >
-          my verified skills ({(student?.skills || []).length})
+          my verified skills (<AnimatedNumber value={(student?.skills || []).length} />)
         </button>
 
         <button
           type="button"
-          onClick={() => setActiveTab('applications')}
+          onClick={() => setStudentTab('applications')}
           style={{
             background: 'none',
             border: 'none',
             cursor: 'pointer',
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
-            color: activeTab === 'applications' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'applications' ? 700 : 500,
-            borderBottom: activeTab === 'applications' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            color: studentTab === 'applications' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: studentTab === 'applications' ? 700 : 500,
+            borderBottom: studentTab === 'applications' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
         >
-          applications tracker ({applications.filter(a => student && a.studentId === student.id).length})
+          applications tracker (<AnimatedNumber value={applications.filter(a => student && a.studentId === student.id).length} />)
         </button>
       </div>
 
       {/* ====================================================================
           TAB 1: TARGET ROLES & GAP EXPLORER
           ==================================================================== */}
-      {activeTab === 'jobs' && (
-        <div>
+      {studentTab === 'jobs' && (
+        <div className="notebook-view-transition">
           {/* Section: Ready Now */}
           <div style={{ marginBottom: '40px' }}>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', marginBottom: '16px' }}>
@@ -243,8 +245,8 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
       {/* ====================================================================
           TAB 2: MY SKILLS & FIXED TAXONOMY BROWSER
           ==================================================================== */}
-      {activeTab === 'skills' && (
-        <div>
+      {studentTab === 'skills' && (
+        <div className="notebook-view-transition">
           {/* Current Skills with Proficiency toggles */}
           <PaperNote style={{ marginBottom: '32px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
@@ -410,8 +412,9 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
       {/* ====================================================================
           TAB 3: APPLICATIONS TRACKER
           ==================================================================== */}
-      {activeTab === 'applications' && (
-        <PaperNote>
+      {studentTab === 'applications' && (
+        <div className="notebook-view-transition">
+          <PaperNote>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <SmallCapsHeading level={3} style={{ fontSize: '1.25rem', color: 'var(--ink-deep)' }}>
               submitted applications ledger
@@ -489,6 +492,7 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             </div>
           )}
         </PaperNote>
+        </div>
       )}
     </div>
   );

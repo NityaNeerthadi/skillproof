@@ -2,7 +2,7 @@
 API v1 Main Router aggregating all domain endpoints.
 """
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, student, recruiter
+from app.api.v1.endpoints import auth, student, recruiter, admin
 
 api_router = APIRouter()
 
@@ -14,4 +14,7 @@ api_router.include_router(student.router, prefix="/student", tags=["Student"])
 
 # Register Recruiter endpoints
 api_router.include_router(recruiter.router, tags=["Recruiter"])
+
+# Register Institution Admin endpoints
+api_router.include_router(admin.router, prefix="/admin", tags=["Institution Admin"])
 

@@ -158,6 +158,8 @@ export const AppProvider = ({ children }) => {
 
   // Dynamic Data States (Fetched Exclusively from API / PostgreSQL)
   const [student, setStudent] = useState(null);
+  const [studentTab, setStudentTab] = useState('jobs'); // 'jobs' | 'skills' | 'applications'
+  const [isCreateJobOpen, setIsCreateJobOpen] = useState(false);
   const [jobs, setJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [cohortStats, setCohortStats] = useState(null);
@@ -300,13 +302,14 @@ export const AppProvider = ({ children }) => {
       // Successful direct authentication
       const accessToken = response.access_token;
       setToken(accessToken);
-      if (response.user) {
-        setCurrentUser(response.user);
+      let authenticatedUser = response.user;
+      if (authenticatedUser) {
+        setCurrentUser(authenticatedUser);
       } else {
-        const user = await api.auth.getMe();
-        setCurrentUser(user);
+        authenticatedUser = await api.auth.getMe();
+        setCurrentUser(authenticatedUser);
       }
-      return { requires2FA: false, success: true };
+      return { requires2FA: false, success: true, user: authenticatedUser };
     } catch (err) {
       setApiError(err.message);
       throw err;
@@ -326,13 +329,14 @@ export const AppProvider = ({ children }) => {
 
       const accessToken = response.access_token;
       setToken(accessToken);
-      if (response.user) {
-        setCurrentUser(response.user);
+      let authenticatedUser = response.user;
+      if (authenticatedUser) {
+        setCurrentUser(authenticatedUser);
       } else {
-        const user = await api.auth.getMe();
-        setCurrentUser(user);
+        authenticatedUser = await api.auth.getMe();
+        setCurrentUser(authenticatedUser);
       }
-      return { success: true };
+      return { success: true, user: authenticatedUser };
     } catch (err) {
       setApiError(err.message);
       throw err;
@@ -477,6 +481,10 @@ export const AppProvider = ({ children }) => {
         setCurrentView,
         student,
         setStudent,
+        studentTab,
+        setStudentTab,
+        isCreateJobOpen,
+        setIsCreateJobOpen,
         jobs: analyzedJobs,
         readyNowJobs,
         almostThereJobs,
