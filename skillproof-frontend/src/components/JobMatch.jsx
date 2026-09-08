@@ -144,7 +144,7 @@ export const JobMatch = ({
               style={{
                 fontFamily: 'var(--font-handwriting)',
                 fontSize: '2.4rem',
-                fontWeight: 700,
+                fontWeight: 600,
                 color: dynamicPercentage === 100 ? 'var(--ink-deep)' : 'var(--ink-primary)',
                 lineHeight: 1
               }}

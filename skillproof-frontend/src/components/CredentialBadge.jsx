@@ -71,7 +71,7 @@ export const CredentialBadge = ({
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingTop: '8px',
-          borderTop: '1px dashed rgba(108, 90, 115, 0.16)'
+          borderTop: '1px dashed rgba(88, 63, 107, 0.16)'
         }}
       >
         <span

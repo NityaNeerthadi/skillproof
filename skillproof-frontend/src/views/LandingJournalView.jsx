@@ -15,12 +15,12 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
 
   // Demonstration student and job for the interactive study journal preview
   const sampleStudent = {
-    name: 'Yash Pandey',
+    name: 'Student Scholar',
     degree: 'B.Tech Computer Science & Engineering',
     university: 'Manipal University Jaipur',
     year: 'Class of 2026',
-    avatarInitials: 'YP',
-    githubUsername: 'yashpandey',
+    avatarInitials: 'SS',
+    githubUsername: 'studentscholar',
     githubVerified: true,
     trustScore: 94,
     bio: 'Distributed systems & backend engineering student focused on high-throughput asynchronous services and deterministic algorithms.',
@@ -206,7 +206,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                 style={{
                   fontFamily: 'var(--font-handwriting)',
                   fontSize: '2rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: 'var(--ink-primary)',
                   lineHeight: 1
                 }}
@@ -235,7 +235,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                 style={{
                   fontFamily: 'var(--font-handwriting)',
                   fontSize: '2rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: 'var(--ink-primary)',
                   lineHeight: 1
                 }}
@@ -272,7 +272,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                 style={{
                   fontFamily: 'var(--font-handwriting)',
                   fontSize: '2rem',
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: 'var(--ink-primary)',
                   lineHeight: 1
                 }}
@@ -329,7 +329,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
               <span className="small-caps" style={{ fontSize: '1.05rem', color: 'var(--ink-deep)', fontFamily: 'var(--font-handwriting)' }}>
                 github account:
               </span>
-              <span style={{ fontFamily: 'var(--font-handwriting)', fontSize: '1.15rem', color: 'var(--ink-primary)', fontWeight: 700 }}>
+              <span style={{ fontFamily: 'var(--font-handwriting)', fontSize: '1.15rem', color: 'var(--ink-primary)', fontWeight: 600 }}>
                 @{currentStudent.githubUsername}
               </span>
               <span style={{ fontSize: '1.0rem', padding: '2px 8px', borderRadius: '3px', backgroundColor: 'var(--lavender-pale)', color: 'var(--ink-deep)', fontWeight: 600, fontFamily: 'var(--font-handwriting)' }}>
@@ -412,7 +412,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
           </p>
         </div>
 
-        {/* Student Profile Card (Yash Pandey) */}
+        {/* Student Profile Card (Scholar Preview) */}
         <PaperNote tilt="left" style={{ maxWidth: '860px', padding: '32px' }}>
           <div
             style={{
@@ -439,7 +439,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                     alignItems: 'center',
                     justifyContent: 'center',
                     fontFamily: 'var(--font-handwriting)',
-                    fontWeight: 700,
+                    fontWeight: 600,
                     color: 'var(--ink-deep)',
                     fontSize: '1.35rem'
                   }}
@@ -452,7 +452,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                     style={{
                       fontFamily: 'var(--font-handwriting)',
                       fontSize: '1.85rem',
-                      fontWeight: 700,
+                      fontWeight: 600,
                       color: 'var(--ink-deep)',
                       lineHeight: 1.15
                     }}
@@ -693,7 +693,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
                 display: 'block',
                 fontSize: 'clamp(2rem, 4vw, 3rem)',
                 color: 'var(--ink-deep)',
-                fontWeight: 700
+                fontWeight: 600
               }}
             >
               ready to write your
@@ -735,7 +735,7 @@ export const LandingJournalView = ({ onOpenGithubAudit, onInspectCredential, onO
 
           <div style={{ marginTop: '24px' }}>
             <HandwrittenAnnotation style={{ fontSize: '1.25rem', color: 'var(--ink-primary)' }}>
-              "skills tell stories" ✦ Yash Pandey & SkillProof
+              "skills tell stories" ✦ Student Scholar & SkillProof
             </HandwrittenAnnotation>
           </div>
         </div>

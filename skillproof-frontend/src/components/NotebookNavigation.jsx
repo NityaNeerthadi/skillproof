@@ -10,6 +10,10 @@ export const NotebookNavigation = () => {
     logout,
     studentTab,
     setStudentTab,
+    adminTab,
+    setAdminTab,
+    recruiterTab,
+    setRecruiterTab,
     setIsCreateJobOpen
   } = useApp();
 
@@ -48,9 +52,13 @@ export const NotebookNavigation = () => {
         }
       },
       {
-        id: 'verify',
-        label: 'verify certificate',
-        onClick: () => setCurrentView('verify')
+        id: 'student-dash',
+        tab: 'verify',
+        label: 'verify credentials',
+        onClick: () => {
+          setCurrentView('student-dash');
+          setStudentTab('verify');
+        }
       }
     ];
   } else if (currentUser?.role === 'recruiter') {
@@ -58,8 +66,12 @@ export const NotebookNavigation = () => {
     navLinks = [
       {
         id: 'recruiter-dash',
+        tab: 'pipeline',
         label: 'talent pipeline',
-        onClick: () => setCurrentView('recruiter-dash')
+        onClick: () => {
+          setCurrentView('recruiter-dash');
+          setRecruiterTab('pipeline');
+        }
       },
       {
         id: 'post-job',
@@ -68,9 +80,13 @@ export const NotebookNavigation = () => {
         onClick: () => setIsCreateJobOpen(true)
       },
       {
-        id: 'verify',
-        label: 'verify credentials',
-        onClick: () => setCurrentView('verify')
+        id: 'recruiter-dash',
+        tab: 'verify',
+        label: 'verify candidate credentials',
+        onClick: () => {
+          setCurrentView('recruiter-dash');
+          setRecruiterTab('verify');
+        }
       }
     ];
   } else if (currentUser?.role === 'admin' || currentUser?.role === 'institution') {
@@ -78,28 +94,40 @@ export const NotebookNavigation = () => {
     navLinks = [
       {
         id: 'institution-dash',
+        tab: 'analytics',
         label: 'cohort heatmap & analytics',
-        onClick: () => setCurrentView('institution-dash')
+        onClick: () => {
+          setCurrentView('institution-dash');
+          setAdminTab('analytics');
+        }
       },
       {
-        id: 'verify',
-        label: 'verify credentials',
-        onClick: () => setCurrentView('verify')
+        id: 'institution-dash',
+        tab: 'students',
+        label: 'student monitoring roster',
+        onClick: () => {
+          setCurrentView('institution-dash');
+          setAdminTab('students');
+        }
+      },
+      {
+        id: 'institution-dash',
+        tab: 'verify',
+        label: 'verify academic credentials',
+        onClick: () => {
+          setCurrentView('institution-dash');
+          setAdminTab('verify');
+        }
       }
     ];
   } else {
-    // Unauthenticated Guest View
+    // Unauthenticated Guest View: only journal overview
     roleSubtitle = 'skills tell stories';
     navLinks = [
       {
         id: 'journal',
         label: 'journal overview',
         onClick: () => setCurrentView('journal')
-      },
-      {
-        id: 'verify',
-        label: 'verify certificate',
-        onClick: () => setCurrentView('verify')
       }
     ];
   }
@@ -112,20 +140,15 @@ export const NotebookNavigation = () => {
       setStudentTab('jobs');
     } else if (currentUser.role === 'recruiter') {
       setCurrentView('recruiter-dash');
+      setRecruiterTab('pipeline');
     } else {
       setCurrentView('institution-dash');
+      setAdminTab('analytics');
     }
   };
 
   return (
-    <header
-      style={{
-        paddingTop: '20px',
-        paddingBottom: '16px',
-        borderBottom: '1px dashed rgba(108, 90, 115, 0.18)',
-        marginBottom: '16px'
-      }}
-    >
+    <header className="notebook-sticky-header">
       <div
         style={{
           display: 'flex',
@@ -147,9 +170,9 @@ export const NotebookNavigation = () => {
         >
           <span
             style={{
-              fontFamily: 'var(--font-handwriting)',
-              fontSize: '1.75rem',
-              fontWeight: 700,
+              fontFamily: 'var(--font-heading)',
+              fontSize: '1.85rem',
+              fontWeight: 600,
               color: 'var(--ink-deep)',
               letterSpacing: '0.02em',
               lineHeight: 1
@@ -182,7 +205,11 @@ export const NotebookNavigation = () => {
           {navLinks.map((link, idx) => {
             const isActive = link.isAction
               ? false
-              : currentView === link.id && (!link.tab || studentTab === link.tab);
+              : currentView === link.id &&
+                (!link.tab ||
+                  (currentUser?.role === 'student' && studentTab === link.tab) ||
+                  (currentUser?.role === 'recruiter' && recruiterTab === link.tab) ||
+                  ((currentUser?.role === 'admin' || currentUser?.role === 'institution') && adminTab === link.tab));
 
             return (
               <div
@@ -202,7 +229,7 @@ export const NotebookNavigation = () => {
                     fontFamily: 'var(--font-handwriting)',
                     fontSize: '1.2rem',
                     color: isActive ? 'var(--ink-deep)' : 'var(--ink-muted)',
-                    fontWeight: isActive ? 700 : 500,
+                    fontWeight: isActive ? 600 : 400,
                     letterSpacing: '0.02em',
                     transition: 'color var(--transition-calm)',
                     padding: '2px 0'
@@ -245,10 +272,13 @@ export const NotebookNavigation = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '10px',
-                padding: '4px 12px',
+                padding: '5px 14px',
                 borderRadius: 'var(--radius-paper)',
                 backgroundColor: 'var(--paper-card)',
-                border: '1px solid rgba(108, 90, 115, 0.22)',
+                backdropFilter: 'var(--glass-blur)',
+                WebkitBackdropFilter: 'var(--glass-blur)',
+                border: '1px solid rgba(88, 63, 107, 0.18)',
+                boxShadow: 'var(--shadow-weightless-sm)',
                 fontSize: '1.12rem'
               }}
             >

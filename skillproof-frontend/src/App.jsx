@@ -21,15 +21,15 @@ function AppContent() {
   const [selectedJobToApply, setSelectedJobToApply] = useState(null);
   const [inspectedCredential, setInspectedCredential] = useState(null);
 
-  // Role Protection: Ensure users only see their designated role views
+  // Role Protection: Ensure users strictly see their designated role views
   useEffect(() => {
     if (!currentUser) return;
-    if (currentUser.role === 'student' && (currentView === 'recruiter-dash' || currentView === 'institution-dash')) {
-      setCurrentView('student-dash');
-    } else if (currentUser.role === 'recruiter' && (currentView === 'student-dash' || currentView === 'institution-dash')) {
-      setCurrentView('recruiter-dash');
-    } else if ((currentUser.role === 'admin' || currentUser.role === 'institution') && (currentView === 'student-dash' || currentView === 'recruiter-dash')) {
-      setCurrentView('institution-dash');
+    if (currentUser.role === 'student') {
+      if (currentView !== 'student-dash') setCurrentView('student-dash');
+    } else if (currentUser.role === 'recruiter') {
+      if (currentView !== 'recruiter-dash') setCurrentView('recruiter-dash');
+    } else if (currentUser.role === 'admin' || currentUser.role === 'institution') {
+      if (currentView !== 'institution-dash') setCurrentView('institution-dash');
     }
   }, [currentUser, currentView, setCurrentView]);
 
@@ -52,12 +52,14 @@ function AppContent() {
           <StudentDashboardView
             onOpenGithubAudit={() => setIsGithubModalOpen(true)}
             onOpenJobApply={(job) => setSelectedJobToApply(job)}
+            onInspectCredential={(cred) => setInspectedCredential(cred)}
           />
         )}
 
         {currentView === 'recruiter-dash' && (
           <RecruiterDashboardView
             onOpenCreateJob={() => setIsCreateJobOpen(true)}
+            onInspectCredential={(cred) => setInspectedCredential(cred)}
           />
         )}
 

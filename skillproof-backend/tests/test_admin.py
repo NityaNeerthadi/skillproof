@@ -361,8 +361,8 @@ async def test_admin_verify_student_success_and_revoke():
             role=UserRole.ADMIN
         )
         student = User(
-            email="yash_scholar@univ.edu",
-            name="Yash Pandey",
+            email="scholar_aarav@univ.edu",
+            name="Aarav Sharma",
             password_hash=get_password_hash("Pass123"),
             role=UserRole.STUDENT,
             department="Computer Science & Engineering",
@@ -505,3 +505,60 @@ async def test_admin_nudges_course_recommendations():
         assert redis_nudge["percentage_lacking"] == 100.0
         assert len(redis_nudge["course_recommendations"]) == 1
         assert redis_nudge["course_recommendations"][0]["course_title"] == "Distributed Caching with Redis & FastAPI"
+
+
+@pytest.mark.asyncio
+async def test_admin_monitored_students_roster():
+    """Verify GET /api/v1/admin/students returns student cohort roster with skills and status."""
+    async with admin_session_factory() as session:
+        admin = User(email="admin_mon@univ.edu", password_hash=get_password_hash("P"), role=UserRole.ADMIN)
+        s1 = User(
+            email="mon_stud1@univ.edu",
+            name="Rohan Mehta",
+            password_hash=get_password_hash("P"),
+            role=UserRole.STUDENT,
+            department="Computer Science & Engineering",
+            batch="2026",
+            github_username="rohanm",
+            is_verified=True
+        )
+        s2 = User(
+            email="mon_stud2@univ.edu",
+            name="Priya Iyer",
+            password_hash=get_password_hash("P"),
+            role=UserRole.STUDENT,
+            department="Information Technology",
+            batch="2026",
+            is_verified=False
+        )
+        session.add_all([admin, s1, s2])
+        await session.commit()
+        await session.refresh(admin)
+        await session.refresh(s1)
+
+        sk = Skill(id="sk_mon_py", name="Python", category="Backend")
+        session.add(sk)
+        await session.commit()
+
+        session.add(StudentSkill(student_id=s1.id, skill_id="sk_mon_py", proficiency=ProficiencyLevel.ADVANCED))
+        await session.commit()
+
+        admin_token = create_access_token(subject=admin.id, role=UserRole.ADMIN.value, scope="full_access")
+
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        res = await client.get(
+            "/api/v1/admin/students",
+            headers={"Authorization": f"Bearer {admin_token}"}
+        )
+        assert res.status_code == 200
+        data = res.json()
+        assert data["total_count"] >= 2
+        students = data["students"]
+        rohan = next(s for s in students if s["email"] == "mon_stud1@univ.edu")
+        assert rohan["name"] == "Rohan Mehta"
+        assert rohan["github_verified"] is True
+        assert rohan["is_verified"] is True
+        assert "sk_mon_py" in rohan["skills"]
+        assert rohan["trust_score"] > 70
+

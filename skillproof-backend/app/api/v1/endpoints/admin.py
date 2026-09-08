@@ -24,6 +24,8 @@ from app.schemas.admin import (
     StudentVerificationResponse,
     AdminNudgeItem,
     AdminNudgesResponse,
+    AdminStudentMonitorItem,
+    AdminStudentsResponse,
 )
 
 router = APIRouter()
@@ -362,3 +364,87 @@ async def get_curriculum_nudges(
         total_students=total_students,
         nudges=nudges
     )
+
+
+@router.get(
+    "/students",
+    response_model=AdminStudentsResponse,
+    summary="Admin Student Monitoring Roster",
+    description="Query and monitor students in the academic cohort with trust scores, verified skills, and placement statuses."
+)
+async def get_monitored_students(
+    department: Optional[str] = Query(None, description="Filter by department"),
+    batch: Optional[str] = Query(None, description="Filter by batch"),
+    status: Optional[str] = Query(None, description="Filter by placement status: placed, shortlisted, applied, seeking, needs_verification"),
+    search: Optional[str] = Query(None, description="Search term for student name or email"),
+    db: AsyncSession = Depends(get_db),
+    current_admin: User = Depends(RequireRole("admin"))
+) -> AdminStudentsResponse:
+    stmt = (
+        select(User)
+        .where(User.role == UserRole.STUDENT)
+        .order_by(User.name.asc())
+    )
+    if department:
+        stmt = stmt.where(User.department == department)
+    if batch:
+        stmt = stmt.where(User.batch == batch)
+    if search:
+        search_pattern = f"%{search.strip().lower()}%"
+        stmt = stmt.where(
+            func.lower(User.name).like(search_pattern) | 
+            func.lower(User.email).like(search_pattern)
+        )
+
+    result = await db.execute(stmt)
+    students = result.scalars().all()
+
+    items: List[AdminStudentMonitorItem] = []
+    for s in students:
+        skills_stmt = select(StudentSkill.skill_id).where(StudentSkill.student_id == s.id)
+        skills_res = await db.execute(skills_stmt)
+        skill_ids = [row[0] for row in skills_res.all()]
+
+        apps_stmt = select(Application.status).where(Application.student_id == s.id)
+        apps_res = await db.execute(apps_stmt)
+        app_statuses = [row[0] for row in apps_res.all()]
+
+        if ApplicationStatus.PLACED in app_statuses:
+            p_status = "placed"
+        elif ApplicationStatus.SHORTLISTED in app_statuses:
+            p_status = "shortlisted"
+        elif len(app_statuses) > 0:
+            p_status = "applied"
+        else:
+            p_status = "seeking"
+
+        if status:
+            if status == "needs_verification" and s.is_verified:
+                continue
+            elif status in ["placed", "shortlisted", "applied", "seeking"] and p_status != status:
+                continue
+
+        trust = 70 + min(len(skill_ids) * 5, 20) + (10 if s.github_username else 0)
+
+        items.append(
+            AdminStudentMonitorItem(
+                student_id=s.id,
+                name=s.name or "Student Scholar",
+                email=s.email,
+                department=s.department or "Computer Science & Engineering",
+                batch=s.batch or "2026",
+                github_username=s.github_username,
+                github_verified=bool(s.github_username),
+                trust_score=trust,
+                verified_skills_count=len(skill_ids),
+                skills=skill_ids,
+                applications_count=len(app_statuses),
+                placement_status=p_status,
+                is_verified=bool(s.is_verified),
+                verification_notes=s.verification_notes,
+                verified_at=s.verified_at
+            )
+        )
+
+    return AdminStudentsResponse(total_count=len(items), students=items)
+

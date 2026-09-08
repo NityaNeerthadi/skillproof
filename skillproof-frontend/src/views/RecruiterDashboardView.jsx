@@ -4,10 +4,11 @@ import { NotebookButton } from '../components/NotebookButton';
 import { SkillBadge } from '../components/SkillBadge';
 import { PaperNote } from '../components/PaperNote';
 import { AnimatedNumber } from '../components/AnimatedNumber';
+import { CertificateVerifierView } from './CertificateVerifierView';
 import { useApp } from '../context/AppContext';
 
-export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
-  const { jobs, applications, updateApplicationStatus, student, allSkills } = useApp();
+export const RecruiterDashboardView = ({ onOpenCreateJob, onInspectCredential }) => {
+  const { jobs, applications, updateApplicationStatus, student, allSkills, recruiterTab, setRecruiterTab } = useApp();
   const [filter, setFilter] = useState('all'); // 'all' | 'ready-now' | 'in-progress' | 'shortlisted' | 'placed'
 
   const skillDict = React.useMemo(() => {
@@ -55,49 +56,215 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
         </NotebookButton>
       </div>
 
-      {/* Summary Metrics on ruled lines */}
+      {/* Recruiter Navigation Sub-Tabs */}
       <div
         style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '16px',
-          marginBottom: '32px'
+          display: 'flex',
+          alignItems: 'center',
+          gap: '20px',
+          marginBottom: '28px',
+          borderBottom: '1px dashed rgba(108, 90, 115, 0.16)',
+          paddingBottom: '6px'
         }}
       >
-        <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+        <button
+          type="button"
+          onClick={() => setRecruiterTab('pipeline')}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
+            color: recruiterTab === 'pipeline' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: recruiterTab === 'pipeline' ? 600 : 400,
+            borderBottom: recruiterTab === 'pipeline' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            paddingBottom: '6px'
+          }}
+        >
+          talent pipeline (<AnimatedNumber value={applications.length} />)
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setRecruiterTab('verify')}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
+            color: recruiterTab === 'verify' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: recruiterTab === 'verify' ? 600 : 400,
+            borderBottom: recruiterTab === 'verify' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            paddingBottom: '6px'
+          }}
+        >
+          verify candidate credentials
+        </button>
+      </div>
+
+      {recruiterTab === 'pipeline' && (
+        <div className="notebook-view-transition">
+          {/* Summary Metrics on ruled lines */}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '18px',
+              marginBottom: '32px'
+            }}
+          >
+        <div className="notebook-metric-card">
+          <span className="small-caps" style={{ fontSize: '1.08rem', color: 'var(--ink-muted)' }}>
             active job postings
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
+          <div style={{ fontSize: '2.0rem', fontWeight: 600, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
             <AnimatedNumber value={jobs.length} />
           </div>
         </div>
 
-        <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+        <div className="notebook-metric-card">
+          <span className="small-caps" style={{ fontSize: '1.08rem', color: 'var(--ink-muted)' }}>
             total applicants received
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
+          <div style={{ fontSize: '2.0rem', fontWeight: 600, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
             <AnimatedNumber value={applications.length} />
           </div>
         </div>
 
-        <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+        <div className="notebook-metric-card">
+          <span className="small-caps" style={{ fontSize: '1.08rem', color: 'var(--ink-muted)' }}>
             ready now (100% matched)
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
+          <div style={{ fontSize: '2.0rem', fontWeight: 600, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
             <AnimatedNumber value={applications.filter(a => a.matchPercentage === 100).length} />
           </div>
         </div>
 
-        <div style={{ padding: '16px', backgroundColor: 'var(--paper-clean)', borderRadius: '4px', border: '1px solid rgba(108, 90, 115, 0.16)' }}>
-          <span className="small-caps" style={{ fontSize: '0.74rem', color: 'var(--ink-muted)' }}>
+        <div className="notebook-metric-card">
+          <span className="small-caps" style={{ fontSize: '1.08rem', color: 'var(--ink-muted)' }}>
             shortlisted candidates
           </span>
-          <div style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
+          <div style={{ fontSize: '2.0rem', fontWeight: 600, color: 'var(--ink-deep)', lineHeight: 1.2 }}>
             <AnimatedNumber value={applications.filter(a => a.status === 'shortlisted').length} />
           </div>
+        </div>
+      </div>
+
+      {/* Active Published Job Openings */}
+      <div style={{ marginBottom: '36px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '14px' }}>
+          <div>
+            <SmallCapsHeading level={2} style={{ fontSize: '1.35rem', color: 'var(--ink-deep)' }}>
+              active published job listings ({jobs.length})
+            </SmallCapsHeading>
+            <p style={{ fontSize: '0.85rem', color: 'var(--ink-muted)', margin: '2px 0 0 0' }}>
+              deterministic match criteria actively screening senior cohort
+            </p>
+          </div>
+
+          <NotebookButton variant="paper" onClick={onOpenCreateJob} style={{ padding: '6px 14px', fontSize: '0.82rem' }}>
+            + publish another opening
+          </NotebookButton>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+          {jobs.map(job => {
+            const reqSkills = (job.requiredSkills || (job.required_skills ? job.required_skills.map(s => s.skill_id || s.id || s) : []) || [])
+              .map(s => (typeof s === 'string' ? s : (s.skill_id || s.id || '')))
+              .filter(Boolean);
+            const jobAppsCount = applications.filter(a => a.jobId === job.id).length;
+
+            return (
+              <PaperNote
+                key={job.id}
+                style={{
+                  padding: '18px 20px',
+                  backgroundColor: 'var(--paper-clean)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  border: '1px solid rgba(108, 90, 115, 0.18)'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', marginBottom: '6px' }}>
+                    <h4
+                      style={{
+                        fontFamily: 'var(--font-handwriting)',
+                        fontSize: '1.45rem',
+                        color: 'var(--ink-deep)',
+                        margin: 0
+                      }}
+                    >
+                      {job.title}
+                    </h4>
+                    <span
+                      style={{
+                        fontSize: '0.78rem',
+                        padding: '2px 8px',
+                        borderRadius: '3px',
+                        backgroundColor: 'var(--lavender-pale)',
+                        color: 'var(--ink-deep)',
+                        fontFamily: 'var(--font-handwriting)',
+                        fontWeight: 600,
+                        whiteSpace: 'nowrap'
+                      }}
+                    >
+                      {job.type || 'Full-time'}
+                    </span>
+                  </div>
+
+                  <p style={{ fontSize: '0.92rem', color: 'var(--ink-primary)', margin: '0 0 8px 0', fontFamily: 'var(--font-handwriting)', fontWeight: 600 }}>
+                    {job.stipend || 'Competitive Package'} · {job.location || 'Hybrid'}
+                  </p>
+
+                  <p style={{ fontSize: '0.82rem', color: 'var(--ink-muted)', marginBottom: '12px', lineHeight: 1.4 }}>
+                    {job.description?.slice(0, 110)}{job.description?.length > 110 ? '...' : ''}
+                  </p>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '12px' }}>
+                    {reqSkills.map(sId => {
+                      const sObj = skillDict[sId] || { name: sId };
+                      return (
+                        <span
+                          key={sId}
+                          style={{
+                            fontSize: '0.8rem',
+                            padding: '2px 7px',
+                            borderRadius: '3px',
+                            backgroundColor: 'rgba(108, 90, 115, 0.08)',
+                            color: 'var(--ink-deep)',
+                            fontFamily: 'var(--font-handwriting)'
+                          }}
+                        >
+                          {sObj.name || sId}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    paddingTop: '10px',
+                    borderTop: '1px dashed rgba(108, 90, 115, 0.16)'
+                  }}
+                >
+                  <span style={{ fontSize: '0.9rem', color: 'var(--ink-muted)', fontFamily: 'var(--font-handwriting)' }}>
+                    {jobAppsCount} applicant{jobAppsCount === 1 ? '' : 's'} received
+                  </span>
+                  <span style={{ fontSize: '0.85rem', color: '#2e7d32', fontFamily: 'var(--font-handwriting)', fontWeight: 600 }}>
+                    ● actively accepting
+                  </span>
+                </div>
+              </PaperNote>
+            );
+          })}
         </div>
       </div>
 
@@ -153,7 +320,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
         ) : (
           filteredApps.map(app => {
             const job = jobs.find(j => j.id === app.jobId);
-            const isYash = Boolean(student && app.studentId === student.id);
+            const isCurrentStudent = Boolean(student && app.studentId === student.id);
 
             return (
               <PaperNote
@@ -180,7 +347,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
                       <span style={{ fontSize: '0.78rem', color: 'var(--ink-muted)' }}>
                         ({app.university || 'University'})
                       </span>
-                      {isYash && student?.githubVerified && (
+                      {isCurrentStudent && student?.githubVerified && (
                         <span style={{ fontSize: '0.72rem', padding: '1px 6px', backgroundColor: 'var(--lavender-pale)', color: 'var(--ink-deep)', borderRadius: '3px', fontWeight: 600 }}>
                           ✓ github verified
                         </span>
@@ -192,7 +359,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
                     </div>
 
                     {/* Candidate verified skills pills */}
-                    {isYash && (
+                    {isCurrentStudent && (
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '10px' }}>
                         {(student?.skills || []).map(s => {
                           const skillInfo = skillDict[s.skillId] || { name: s.skillId, color: 'lavender' };
@@ -218,7 +385,7 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
                       <span
                         style={{
                           fontSize: '1.6rem',
-                          fontWeight: 700,
+                          fontWeight: 600,
                           color: app.matchPercentage === 100 ? 'var(--ink-deep)' : 'var(--ink-primary)',
                           lineHeight: 1
                         }}
@@ -310,6 +477,14 @@ export const RecruiterDashboardView = ({ onOpenCreateJob }) => {
           ))}
         </div>
       </div>
+      </div>
+      )}
+
+      {recruiterTab === 'verify' && (
+        <div className="notebook-view-transition">
+          <CertificateVerifierView onInspectCredential={onInspectCredential} />
+        </div>
+      )}
     </div>
   );
 };

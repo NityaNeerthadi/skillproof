@@ -56,7 +56,7 @@ export const CertificateModal = ({ credential, onClose }) => {
                 fontSize: '1.1rem',
                 letterSpacing: '0.14em',
                 color: 'var(--ink-deep)',
-                fontWeight: 700
+                fontWeight: 600
               }}
             >
               skillproof academic credentials registry
@@ -84,9 +84,9 @@ export const CertificateModal = ({ credential, onClose }) => {
 
           <h3
             style={{
-              fontFamily: 'var(--font-handwriting)',
+              fontFamily: 'var(--font-heading)',
               fontSize: '1.85rem',
-              fontWeight: 700,
+              fontWeight: 600,
               color: 'var(--ink-deep)',
               marginBottom: '12px'
             }}
@@ -96,7 +96,7 @@ export const CertificateModal = ({ credential, onClose }) => {
 
           <p style={{ fontSize: '1.15rem', color: 'var(--ink-body)', marginBottom: '16px', fontFamily: 'var(--font-handwriting)' }}>
             has demonstrated verified proficiency in{' '}
-            <span style={{ fontWeight: 700, color: 'var(--ink-deep)' }}>
+            <span style={{ fontWeight: 600, color: 'var(--ink-deep)' }}>
               {credential.title}
             </span>{' '}
             validated via university coursework and production git audit.

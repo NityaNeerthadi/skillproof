@@ -7,9 +7,10 @@ import { PaperNote } from '../components/PaperNote';
 import { TrustScore } from '../components/TrustScore';
 import { AnimatedNumber } from '../components/AnimatedNumber';
 import { Sparkle } from '../components/HandwrittenDoodles';
+import { CertificateVerifierView } from './CertificateVerifierView';
 import { useApp } from '../context/AppContext';
 
-export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
+export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply, onInspectCredential }) => {
   const {
     token,
     student,
@@ -138,7 +139,7 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
             color: studentTab === 'jobs' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: studentTab === 'jobs' ? 700 : 500,
+            fontWeight: studentTab === 'jobs' ? 600 : 400,
             borderBottom: studentTab === 'jobs' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
@@ -156,7 +157,7 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
             color: studentTab === 'skills' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: studentTab === 'skills' ? 700 : 500,
+            fontWeight: studentTab === 'skills' ? 600 : 400,
             borderBottom: studentTab === 'skills' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
@@ -174,12 +175,30 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             fontFamily: 'var(--font-handwriting)',
             fontSize: '1.25rem',
             color: studentTab === 'applications' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: studentTab === 'applications' ? 700 : 500,
+            fontWeight: studentTab === 'applications' ? 600 : 400,
             borderBottom: studentTab === 'applications' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
         >
           applications tracker (<AnimatedNumber value={applications.filter(a => student && a.studentId === student.id).length} />)
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setStudentTab('verify')}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
+            color: studentTab === 'verify' ? 'var(--ink-deep)' : 'var(--ink-muted)',
+            fontWeight: studentTab === 'verify' ? 600 : 400,
+            borderBottom: studentTab === 'verify' ? '2px solid var(--ink-deep)' : '2px solid transparent',
+            paddingBottom: '6px'
+          }}
+        >
+          verify credentials
         </button>
       </div>
 
@@ -480,7 +499,7 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
                             backgroundColor: badge.bg,
                             color: badge.text,
                             fontSize: '0.76rem',
-                            fontWeight: 700
+                            fontWeight: 600
                           }}
                         >
                           {badge.label}
@@ -492,6 +511,15 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             </div>
           )}
         </PaperNote>
+        </div>
+      )}
+
+      {/* ====================================================================
+          TAB 4: VERIFY CREDENTIALS
+          ==================================================================== */}
+      {studentTab === 'verify' && (
+        <div className="notebook-view-transition">
+          <CertificateVerifierView onInspectCredential={onInspectCredential} />
         </div>
       )}
     </div>

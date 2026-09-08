@@ -106,7 +106,7 @@ export const api = {
     verifyGithub: (username) =>
       request('/student/verify-github', {
         method: 'POST',
-        body: JSON.stringify({ username })
+        body: JSON.stringify({ github_username: username, username })
       })
   },
 
@@ -134,6 +134,10 @@ export const api = {
     getFunnel: (params = {}) => {
       const q = new URLSearchParams(params).toString();
       return request(`/admin/funnel${q ? `?${q}` : ''}`);
+    },
+    getStudents: (params = {}) => {
+      const q = new URLSearchParams(params).toString();
+      return request(`/admin/students${q ? `?${q}` : ''}`);
     },
     verifyStudent: (studentId, payload = { is_verified: true, notes: 'Accredited by Institution' }) =>
       request(`/admin/verify/student/${studentId}`, {

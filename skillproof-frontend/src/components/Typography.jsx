@@ -19,7 +19,7 @@ export const SmallCapsHeading = ({
       className={`handwritten ${className}`}
       style={{
         margin: 0,
-        fontFamily: 'var(--font-handwriting)',
+        fontFamily: 'var(--font-heading)',
         fontSize: defaultSizes[level] || '1.35rem',
         fontWeight: 600,
         color: 'var(--ink-deep)',
@@ -52,7 +52,7 @@ export const HandwrittenHeading = ({
       className={`handwritten ${className}`}
       style={{
         margin: 0,
-        fontFamily: 'var(--font-handwriting)',
+        fontFamily: 'var(--font-heading)',
         fontSize: defaultSizes[level] || '1.35rem',
         fontWeight: 600,
         color: 'var(--ink-deep)',

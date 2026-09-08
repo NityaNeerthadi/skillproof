@@ -9,7 +9,7 @@ import { useApp } from '../context/AppContext';
 const PUBLIC_REGISTRY = [
   {
     id: 'SKP-2026-9942A',
-    candidateName: 'Yash Pandey',
+    candidateName: 'Student Scholar',
     title: 'Python Core & Distributed Systems Verification',
     issuer: 'SkillProof Academic Board & MUJ',
     issueDate: 'AUG 2026',
@@ -17,7 +17,7 @@ const PUBLIC_REGISTRY = [
   },
   {
     id: 'SKP-2026-8819B',
-    candidateName: 'Yash Pandey',
+    candidateName: 'Aarav Sharma',
     title: 'PostgreSQL Relational Storage & Indexing',
     issuer: 'Faculty of Engineering, MUJ',
     issueDate: 'JUL 2026',

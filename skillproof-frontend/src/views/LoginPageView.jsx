@@ -242,7 +242,7 @@ export const LoginPageView = () => {
                     textAlign: 'center',
                     fontSize: '1.6rem',
                     letterSpacing: '0.35em',
-                    fontWeight: 700,
+                    fontWeight: 600,
                     maxWidth: '220px',
                     margin: '0 auto',
                     display: 'block'
@@ -308,7 +308,7 @@ export const LoginPageView = () => {
                     fontFamily: 'var(--font-handwriting)',
                     fontSize: '1.15rem',
                     color: mode === 'login' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-                    fontWeight: mode === 'login' ? 700 : 500,
+                    fontWeight: mode === 'login' ? 600 : 400,
                     borderBottom: mode === 'login' ? '2px solid var(--ink-deep)' : '2px solid transparent',
                     paddingBottom: '6px',
                     transition: 'all var(--transition-calm)'
@@ -331,7 +331,7 @@ export const LoginPageView = () => {
                     fontFamily: 'var(--font-handwriting)',
                     fontSize: '1.15rem',
                     color: mode === 'register' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-                    fontWeight: mode === 'register' ? 700 : 500,
+                    fontWeight: mode === 'register' ? 600 : 400,
                     borderBottom: mode === 'register' ? '2px solid var(--ink-deep)' : '2px solid transparent',
                     paddingBottom: '6px',
                     transition: 'all var(--transition-calm)'
@@ -374,7 +374,7 @@ export const LoginPageView = () => {
                         cursor: 'pointer',
                         fontFamily: 'var(--font-handwriting)',
                         fontSize: '1.08rem',
-                        fontWeight: selectedRole === r.id ? 700 : 500,
+                        fontWeight: selectedRole === r.id ? 600 : 400,
                         textAlign: 'center',
                         transition: 'all var(--transition-calm)'
                       }}
@@ -480,7 +480,7 @@ export const LoginPageView = () => {
                       required
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      placeholder="e.g. Yash Pandey"
+                      placeholder="e.g. Student Scholar"
                       className="notebook-input"
                     />
                   </div>

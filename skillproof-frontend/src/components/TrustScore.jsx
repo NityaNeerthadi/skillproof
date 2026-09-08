@@ -38,18 +38,20 @@ export const TrustScore = ({
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '4px 14px',
+            padding: '5px 16px',
             backgroundColor: 'var(--paper-card)',
-            border: '1.5px solid rgba(108, 90, 115, 0.3)',
-            borderRadius: '4px',
-            boxShadow: 'inset 0 1px 3px rgba(108, 90, 115, 0.06)'
+            backdropFilter: 'var(--glass-blur)',
+            WebkitBackdropFilter: 'var(--glass-blur)',
+            border: '1.5px solid rgba(88, 63, 107, 0.22)',
+            borderRadius: 'var(--radius-paper)',
+            boxShadow: 'var(--shadow-weightless-sm)'
           }}
         >
           <span
             style={{
               fontFamily: 'var(--font-handwriting)',
               fontSize: '2.1rem',
-              fontWeight: 700,
+              fontWeight: 600,
               color: 'var(--ink-deep)',
               lineHeight: 1
             }}

@@ -1,73 +1,107 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
 
 /* ==========================================================================
-   SKILLPROOF ✦ CONTINUOUS NOTEBOOK & STUDY JOURNAL DESIGN SYSTEM
+   SKILLPROOF ✦ ANTIGRAVITY STUDY JOURNAL DESIGN SYSTEM
+   Combines Spatial Weightlessness, Frosted Glassmorphism, and Archival Stationery
    ========================================================================== */
 
 :root {
-  /* Warm Paper & Ruling */
-  --paper: #F7F3EA;
-  --paper-card: #FAF6EE;
-  --paper-clean: #FDFBF7;
-  --line: rgba(108, 90, 115, 0.10);
-  --line-subtle: rgba(108, 90, 115, 0.06);
-  --margin-line: rgba(180, 120, 130, 0.18);
+  /* Archival Parchment & Ruling */
+  --paper: #FBF8F3;
+  --paper-card: rgba(255, 255, 255, 0.82);
+  --paper-clean: #FFFFFF;
+  --paper-warm: #F4EFE6;
+  --paper-elevated: rgba(255, 255, 255, 0.94);
+  
+  --line: rgba(88, 63, 107, 0.08);
+  --line-subtle: rgba(88, 63, 107, 0.045);
+  --margin-line: rgba(206, 126, 140, 0.28);
   --margin-offset: 80px;
 
-  /* Inks */
-  --ink-primary: #6B5875;
-  --ink-deep: #5E4A68;
-  --ink-body: #454047;
-  --ink-muted: #8A8588;
-  --ink-faded: #A39D9E;
+  /* Velvet Fountain Inks (High Legibility Cursive) */
+  --ink-deep: #2F2138;
+  --ink-primary: #583F6B;
+  --ink-body: #3E3246;
+  --ink-muted: #7E6C88;
+  --ink-faded: #A797B0;
+  --ink-glow: rgba(88, 63, 107, 0.16);
 
-  /* Pastels & Stationery Accents */
-  --lavender: #D9CDE3;
-  --lavender-pale: #EEE8F2;
-  --butter-yellow: #F6DFA3;
-  --soft-yellow: #FFF2C7;
-  --pastel-blue: #DDE7EF;
-  --pastel-pink: #EBDDE3;
-  --pastel-green: #E0EBE2;
+  /* High-Contrast Stationery Pastels */
+  --lavender: #E4D8EE;
+  --lavender-pale: #F4EFF8;
+  --lavender-ink: #50316B;
 
-  /* Typography - Dancing Script Everywhere & No Caps */
-  --font-ui: 'Dancing Script', cursive;
-  --font-handwriting: 'Dancing Script', cursive;
-  --font-cursive-accent: 'Dancing Script', cursive;
+  --butter-yellow: #FDE8B5;
+  --soft-yellow: #FFF8E6;
+  --honey-ink: #6E4909;
+
+  --pastel-blue: #D8E7F6;
+  --blue-pale: #EFF5FB;
+  --blue-ink: #234E74;
+
+  --pastel-pink: #F8DEE7;
+  --pink-pale: #FAF0F5;
+  --pink-ink: #752B4D;
+
+  --pastel-green: #DBEBD9;
+  --green-pale: #EFF7EE;
+  --green-ink: #275731;
+
+  /* Glassmorphism & Depth Layers */
+  --glass-blur: blur(14px);
+  --glass-blur-lg: blur(18px);
+  --glass-border: rgba(88, 63, 107, 0.14);
+  --glass-border-hover: rgba(88, 63, 107, 0.28);
+
+  /* Spatial Weightless Shadows */
+  --shadow-weightless-sm: 0 4px 14px -2px rgba(47, 33, 56, 0.05), 0 2px 6px -1px rgba(47, 33, 56, 0.03);
+  --shadow-weightless-md: 0 12px 30px -4px rgba(47, 33, 56, 0.08), 0 4px 12px -2px rgba(47, 33, 56, 0.04);
+  --shadow-weightless-lg: 0 24px 48px -8px rgba(47, 33, 56, 0.12), 0 8px 20px -3px rgba(47, 33, 56, 0.06);
+  --shadow-hover: 0 20px 40px -6px rgba(47, 33, 56, 0.14), 0 6px 14px -2px rgba(47, 33, 56, 0.06);
+  --shadow-glow: 0 0 24px rgba(88, 63, 107, 0.15);
+
+  /* Typography - Cursive Mix (Caveat + Dancing Script) with Delicate Weight */
+  --font-ui: 'Caveat', 'Dancing Script', cursive;
+  --font-handwriting: 'Caveat', 'Dancing Script', cursive;
+  --font-cursive-accent: 'Dancing Script', 'Caveat', cursive;
+  --font-heading: 'Dancing Script', 'Caveat', cursive;
 
   /* Dimensions & Spacing */
   --rule-height: 32px;
   --container-max: 1160px;
-  --radius-paper: 4px 7px 5px 6px;
-  --radius-sticker: 3px 5px 3px 6px;
+  --radius-paper: 5px 8px 6px 7px;
+  --radius-sticker: 4px 6px 4px 7px;
 
-  /* Transitions */
-  --transition-calm: 0.24s cubic-bezier(0.2, 0.8, 0.3, 1);
+  /* Transitions & Easing */
+  --transition-calm: 0.28s cubic-bezier(0.2, 0.8, 0.3, 1);
+  --transition-spring: 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Reset & Universal Cursive Baseline (Dancing Script, No Caps) */
+/* Reset & Universal Cursive Baseline (Blend of Caveat + Dancing Script, Delicate Weight, No Caps) */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Dancing Script', cursive !important;
+  font-family: 'Caveat', 'Dancing Script', cursive !important;
   font-variant: normal !important;
   font-variant-caps: normal !important;
   text-transform: lowercase;
+  font-weight: 500;
 }
 
 html {
-  font-size: 19px;
+  font-size: 18.5px;
   scroll-behavior: smooth;
   background-color: var(--paper);
 }
 
 body {
-  font-family: 'Dancing Script', cursive !important;
-  font-size: 1.25rem;
+  font-family: 'Caveat', 'Dancing Script', cursive !important;
+  font-size: 1.22rem;
+  font-weight: 450;
   color: var(--ink-body);
   background-color: var(--paper);
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -76,18 +110,34 @@ body {
   text-transform: lowercase;
 }
 
-button, optgroup, span, p, a, h1, h2, h3, h4, h5, h6, 
-label, div, table, tr, td, th, strong, em, b, i, small, code, pre, kbd, samp, 
+button, optgroup, span, p, a, 
+label, div, table, tr, td, 
 li, ul, ol, header, nav, section, article, footer, aside, bdi, bdo, mark, time {
-  font-family: 'Dancing Script', cursive !important;
+  font-family: 'Caveat', 'Dancing Script', cursive !important;
   font-variant: normal !important;
   font-variant-caps: normal !important;
   text-transform: lowercase;
 }
 
-/* Allow text inputs and passwords to preserve user typing while using Dancing Script */
+/* Headings & Display Titles: Dancing Script cursive flourish with refined medium weight (not overly bold) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Dancing Script', 'Caveat', cursive !important;
+  font-weight: 600 !important;
+  color: var(--ink-deep);
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+}
+
+strong, b, th {
+  font-family: 'Caveat', 'Dancing Script', cursive !important;
+  font-weight: 600 !important;
+}
+
+/* Allow text inputs and passwords to preserve user typing while using cursive blend */
 input, textarea, select {
-  font-family: 'Dancing Script', cursive !important;
+  font-family: 'Caveat', 'Dancing Script', cursive !important;
+  font-weight: 500 !important;
   text-transform: none !important;
 }
 
@@ -124,7 +174,7 @@ body::after {
   bottom: 0;
   pointer-events: none;
   z-index: 2;
-  opacity: 0.028;
+  opacity: 0.024;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -148,7 +198,7 @@ body::after {
   background-color: var(--margin-line);
   z-index: 4;
   pointer-events: none;
-  box-shadow: 1px 0 0 rgba(180, 120, 130, 0.06);
+  box-shadow: 1px 0 0 rgba(206, 126, 140, 0.12);
 }
 
 .notebook-content {
@@ -162,22 +212,41 @@ body::after {
 }
 
 /* ==========================================================================
-   TYPOGRAPHY SYSTEMS (CURSIVE & SMALL STUDY JOURNAL)
+   STICKY FROSTED GLASS NAVIGATION BAR (ANTIGRAVITY FLOATING)
+   ========================================================================== */
+
+.notebook-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(251, 248, 243, 0.88);
+  border-bottom: 1px dashed rgba(88, 63, 107, 0.18);
+  box-shadow: 0 4px 20px -4px rgba(47, 33, 56, 0.05);
+  padding-top: 16px;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ==========================================================================
+   TYPOGRAPHY SYSTEMS (CURSIVE & FLOWING STUDY JOURNAL)
    ========================================================================== */
 
 /* Headings default to flowing cursive study journal handwriting */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-handwriting);
-  font-weight: 600;
+  font-family: var(--font-heading) !important;
+  font-weight: 600 !important;
   color: var(--ink-deep);
   line-height: 1.25;
   letter-spacing: 0.01em;
 }
 
-h1 { font-size: 1.95rem; }
-h2 { font-size: 1.55rem; }
-h3 { font-size: 1.3rem; }
-h4 { font-size: 1.15rem; }
+h1 { font-size: 2.1rem; }
+h2 { font-size: 1.65rem; }
+h3 { font-size: 1.35rem; }
+h4 { font-size: 1.2rem; }
 
 /* Refined Small UI Text (Delicate, Non-Shouting) */
 .small-caps {
@@ -186,15 +255,15 @@ h4 { font-size: 1.15rem; }
   -webkit-font-variant-caps: normal !important;
   text-transform: lowercase !important;
   letter-spacing: 0.01em;
-  font-weight: 600;
-  font-size: 1.12rem;
+  font-weight: 500 !important;
+  font-size: 1.15rem;
   color: var(--ink-muted);
 }
 
 .small-caps-heading {
-  font-family: var(--font-handwriting);
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-heading) !important;
+  font-size: 1.55rem;
+  font-weight: 600 !important;
   color: var(--ink-deep);
   letter-spacing: 0.015em;
   line-height: 1.25;
@@ -202,46 +271,47 @@ h4 { font-size: 1.15rem; }
 
 /* Handwritten Cursive Typography */
 .handwritten {
-  font-family: var(--font-handwriting);
+  font-family: var(--font-handwriting) !important;
   color: var(--ink-deep);
-  font-weight: 600;
+  font-weight: 500 !important;
   letter-spacing: 0.01em;
   line-height: 1.3;
 }
 
 .cursive-title {
-  font-family: var(--font-handwriting);
-  font-size: 1.85rem;
-  font-weight: 600;
+  font-family: var(--font-heading) !important;
+  font-size: 1.95rem;
+  font-weight: 600 !important;
   color: var(--ink-deep);
   line-height: 1.2;
 }
 
 .cursive-flowing {
-  font-family: var(--font-cursive-accent);
+  font-family: var(--font-cursive-accent) !important;
   color: var(--ink-primary);
-  font-weight: 600;
+  font-weight: 500 !important;
 }
 
 .handwritten-annotation {
-  font-family: var(--font-handwriting);
+  font-family: var(--font-handwriting) !important;
   color: var(--ink-primary);
-  font-size: 1.15rem;
+  font-size: 1.18rem;
+  font-weight: 500 !important;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   user-select: none;
 }
 
 /* ==========================================================================
-   ORGANIC BUTTER-YELLOW HIGHLIGHTER
+   ORGANIC WATERCOLOR HIGHLIGHTERS (SHIMMERING STATIONERY)
    ========================================================================== */
 
 .highlighter {
   position: relative;
   display: inline-block;
   white-space: nowrap;
-  padding: 0 4px;
+  padding: 0 6px;
 }
 
 .highlighter::before {
@@ -249,43 +319,44 @@ h4 { font-size: 1.15rem; }
   position: absolute;
   left: -4px;
   right: -6px;
-  bottom: 12%;
-  height: 52%;
+  bottom: 10%;
+  height: 54%;
   background: linear-gradient(
     104deg,
-    rgba(246, 223, 163, 0.15) 0%,
-    rgba(246, 223, 163, 0.75) 4%,
-    rgba(246, 223, 163, 0.85) 92%,
-    rgba(246, 223, 163, 0.15) 100%
+    rgba(253, 232, 181, 0.25) 0%,
+    rgba(253, 232, 181, 0.85) 5%,
+    rgba(253, 232, 181, 0.92) 92%,
+    rgba(253, 232, 181, 0.25) 100%
   );
   border-radius: 4px 8px 3px 6px;
   transform: rotate(-0.75deg) skewX(-2deg);
   z-index: -1;
   pointer-events: none;
+  box-shadow: 0 1px 4px rgba(253, 232, 181, 0.3);
 }
 
 .highlighter-soft::before {
   background: linear-gradient(
     102deg,
-    rgba(255, 242, 199, 0.2) 0%,
-    rgba(255, 242, 199, 0.8) 5%,
-    rgba(255, 242, 199, 0.85) 94%,
-    rgba(255, 242, 199, 0.2) 100%
+    rgba(255, 248, 230, 0.25) 0%,
+    rgba(255, 248, 230, 0.88) 5%,
+    rgba(255, 248, 230, 0.94) 94%,
+    rgba(255, 248, 230, 0.25) 100%
   );
 }
 
 .highlighter-lavender::before {
   background: linear-gradient(
     104deg,
-    rgba(217, 205, 227, 0.2) 0%,
-    rgba(217, 205, 227, 0.75) 6%,
-    rgba(217, 205, 227, 0.8) 92%,
-    rgba(217, 205, 227, 0.2) 100%
+    rgba(228, 216, 238, 0.25) 0%,
+    rgba(228, 216, 238, 0.82) 6%,
+    rgba(228, 216, 238, 0.88) 92%,
+    rgba(228, 216, 238, 0.25) 100%
   );
 }
 
 /* ==========================================================================
-   BUTTONS (STATIONERY / INK)
+   BUTTONS (VELVET INK & FROSTED PAPER)
    ========================================================================== */
 
 .notebook-btn {
@@ -297,8 +368,8 @@ h4 { font-size: 1.15rem; }
   font-variant-caps: normal;
   -webkit-font-variant-caps: normal;
   letter-spacing: 0.02em;
-  font-weight: 600;
-  font-size: 1.15rem;
+  font-weight: 500;
+  font-size: 1.18rem;
   padding: 6px 18px;
   border-radius: var(--radius-paper);
   cursor: pointer;
@@ -309,21 +380,21 @@ h4 { font-size: 1.15rem; }
 }
 
 .notebook-btn-primary {
-  background-color: var(--ink-deep);
-  color: var(--paper);
-  border-color: var(--ink-deep);
-  box-shadow: 0 2px 6px rgba(94, 74, 104, 0.14);
+  background: linear-gradient(135deg, #2F2138 0%, #4D355C 100%);
+  color: var(--paper-clean);
+  border-color: #2F2138;
+  box-shadow: 0 3px 10px rgba(47, 33, 56, 0.18), 0 1px 3px rgba(47, 33, 56, 0.10);
 }
 
 .notebook-btn-primary:hover {
-  background-color: var(--ink-primary);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(94, 74, 104, 0.20);
+  background: linear-gradient(135deg, #3E2B4A 0%, #5C416E 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(47, 33, 56, 0.24), 0 0 12px var(--ink-glow);
 }
 
 .notebook-btn-primary:active {
   transform: translateY(1px) scale(0.99);
-  box-shadow: 0 1px 3px rgba(94, 74, 104, 0.12);
+  box-shadow: 0 2px 5px rgba(47, 33, 56, 0.14);
 }
 
 .notebook-btn-secondary {
@@ -341,14 +412,14 @@ h4 { font-size: 1.15rem; }
   right: 12px;
   height: 1.5px;
   background-color: var(--ink-primary);
-  opacity: 0.6;
+  opacity: 0.65;
   border-radius: 2px;
   transition: opacity var(--transition-calm), transform var(--transition-calm);
 }
 
 .notebook-btn-secondary:hover::after {
   opacity: 1;
-  transform: scaleX(1.04);
+  transform: scaleX(1.06);
 }
 
 .notebook-btn-secondary:active {
@@ -357,70 +428,77 @@ h4 { font-size: 1.15rem; }
 
 .notebook-btn-paper {
   background-color: var(--paper-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   color: var(--ink-deep);
-  border: 1px solid rgba(108, 90, 115, 0.22);
-  box-shadow: 0 2px 5px rgba(108, 90, 115, 0.06);
+  border: 1px solid rgba(88, 63, 107, 0.20);
+  box-shadow: var(--shadow-weightless-sm);
 }
 
 .notebook-btn-paper:hover {
   border-color: var(--ink-primary);
   background-color: var(--paper-clean);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-weightless-md);
 }
 
 /* ==========================================================================
-   STICKER SKILL BADGES
+   STICKER SKILL BADGES (HIGH CONTRAST & TACTILE)
    ========================================================================== */
 
 .skill-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 12px;
-  font-size: 1.08rem;
+  padding: 5px 13px;
+  font-size: 1.10rem;
   font-family: var(--font-handwriting) !important;
-  font-weight: 600;
-  color: var(--ink-body);
+  font-weight: 500;
   border-radius: var(--radius-sticker);
-  border: 1px solid rgba(108, 90, 115, 0.18);
-  box-shadow: 0 1px 3px rgba(108, 90, 115, 0.05);
-  transition: transform var(--transition-calm), box-shadow var(--transition-calm);
+  border: 1px solid rgba(88, 63, 107, 0.16);
+  box-shadow: 0 2px 5px rgba(47, 33, 56, 0.04);
+  transition: transform var(--transition-calm), box-shadow var(--transition-calm), border-color var(--transition-calm);
   background-color: var(--paper-clean);
   user-select: none;
 }
 
 .skill-badge:hover {
-  transform: translateY(-1px) rotate(0.5deg);
-  box-shadow: 0 3px 6px rgba(108, 90, 115, 0.10);
+  transform: translateY(-2px) rotate(0.6deg);
+  box-shadow: var(--shadow-weightless-sm);
 }
 
-/* Pastel Tinting per Domain */
+/* High Contrast Pastel Tinting per Domain */
 .skill-badge-lavender {
   background-color: var(--lavender-pale);
-  border-color: rgba(217, 205, 227, 0.7);
+  border-color: rgba(228, 216, 238, 0.9);
+  color: var(--lavender-ink);
 }
 
 .skill-badge-blue {
-  background-color: var(--pastel-blue);
-  border-color: rgba(221, 231, 239, 0.8);
+  background-color: var(--blue-pale);
+  border-color: rgba(216, 231, 246, 0.9);
+  color: var(--blue-ink);
 }
 
 .skill-badge-yellow {
   background-color: var(--soft-yellow);
-  border-color: rgba(246, 223, 163, 0.7);
+  border-color: rgba(253, 232, 181, 0.9);
+  color: var(--honey-ink);
 }
 
 .skill-badge-pink {
-  background-color: var(--pastel-pink);
-  border-color: rgba(235, 221, 227, 0.7);
+  background-color: var(--pink-pale);
+  border-color: rgba(248, 222, 231, 0.9);
+  color: var(--pink-ink);
 }
 
 .skill-badge-green {
-  background-color: var(--pastel-green);
-  border-color: rgba(224, 235, 226, 0.7);
+  background-color: var(--green-pale);
+  border-color: rgba(219, 235, 217, 0.9);
+  color: var(--green-ink);
 }
 
-/* Proficiency Marks (Dots/Underlines) */
+/* Proficiency Marks (Dots) */
 .proficiency-mark {
   display: inline-flex;
   gap: 3px;
@@ -428,30 +506,31 @@ h4 { font-size: 1.15rem; }
 }
 
 .proficiency-dot {
-  width: 4.5px;
-  height: 4.5px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background-color: var(--ink-primary);
+  background-color: currentColor;
   opacity: 0.35;
 }
 
 .proficiency-dot.filled {
   opacity: 0.95;
-  background-color: var(--ink-deep);
 }
 
 /* ==========================================================================
-   PAPER NOTES & INDEX CARDS
+   PAPER NOTES & FROSTED INDEX CARDS (ANTIGRAVITY DEPTH)
    ========================================================================== */
 
 .paper-note {
   position: relative;
   background-color: var(--paper-card);
-  border: 1px solid rgba(108, 90, 115, 0.16);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(88, 63, 107, 0.16);
   border-radius: var(--radius-paper);
-  box-shadow: 0 4px 14px rgba(108, 90, 115, 0.05);
+  box-shadow: var(--shadow-weightless-md);
   padding: 24px;
-  transition: transform var(--transition-calm), box-shadow var(--transition-calm);
+  transition: transform var(--transition-calm), box-shadow var(--transition-calm), border-color var(--transition-calm);
 }
 
 .paper-note-tilted-left {
@@ -463,24 +542,46 @@ h4 { font-size: 1.15rem; }
 }
 
 .paper-note:hover {
-  transform: rotate(0deg) translateY(-2px);
-  box-shadow: 0 8px 20px rgba(108, 90, 115, 0.08);
+  transform: rotate(0deg) translateY(-4px) scale(1.008);
+  box-shadow: var(--shadow-weightless-lg);
+  border-color: rgba(88, 63, 107, 0.28);
 }
 
-/* Subtle tape strip on top of paper note */
+/* Translucent fibrous washi tape strip */
 .paper-note-tape::before {
   content: '';
   position: absolute;
-  top: -9px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%) rotate(-1deg);
-  width: 70px;
-  height: 18px;
-  background-color: rgba(246, 223, 163, 0.45);
-  border-left: 1px dashed rgba(108, 90, 115, 0.2);
-  border-right: 1px dashed rgba(108, 90, 115, 0.2);
+  width: 76px;
+  height: 20px;
+  background: rgba(253, 232, 181, 0.65);
+  backdrop-filter: blur(4px);
+  border-left: 1px dashed rgba(88, 63, 107, 0.25);
+  border-right: 1px dashed rgba(88, 63, 107, 0.25);
+  box-shadow: 0 1px 4px rgba(47, 33, 56, 0.06);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Metric Summary Tile (Antigravity Floating Card) */
+.notebook-metric-card {
+  position: relative;
+  padding: 18px 20px;
+  background-color: var(--paper-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(88, 63, 107, 0.14);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-weightless-sm);
+  transition: transform var(--transition-calm), box-shadow var(--transition-calm), border-color var(--transition-calm);
+}
+
+.notebook-metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-weightless-md);
+  border-color: rgba(88, 63, 107, 0.28);
 }
 
 /* ==========================================================================
@@ -490,18 +591,20 @@ h4 { font-size: 1.15rem; }
 .credential-badge-item {
   position: relative;
   padding: 20px;
-  background-color: var(--paper-clean);
-  border: 1px solid rgba(108, 90, 115, 0.2);
+  background-color: var(--paper-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(88, 63, 107, 0.18);
   border-radius: var(--radius-paper);
-  box-shadow: 0 3px 8px rgba(108, 90, 115, 0.06);
-  transform: rotate(-1deg);
-  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.28s ease;
+  box-shadow: var(--shadow-weightless-sm);
+  transform: rotate(-0.75deg);
+  transition: transform var(--transition-calm), box-shadow var(--transition-calm), border-color var(--transition-calm);
   cursor: pointer;
 }
 
 .credential-badge-item:hover {
-  transform: rotate(0deg) translateY(-4px);
-  box-shadow: 0 10px 24px rgba(94, 74, 104, 0.12);
+  transform: rotate(0deg) translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-weightless-lg);
   border-color: var(--ink-primary);
 }
 
@@ -517,7 +620,7 @@ h4 { font-size: 1.15rem; }
 }
 
 /* ==========================================================================
-   PURPLE INK VERIFICATION STAMP
+   PURPLE INK VERIFICATION STAMP (DOUBLE DASHED RULE & TACTILE TEXTURE)
    ========================================================================== */
 
 .ink-stamp {
@@ -525,28 +628,35 @@ h4 { font-size: 1.15rem; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 2px dashed rgba(94, 74, 104, 0.7);
+  border: 2px dashed rgba(88, 63, 107, 0.75);
   padding: 8px 18px;
   color: var(--ink-deep);
-  font-family: var(--font-handwriting) !important;
+  font-family: var(--font-heading) !important;
   font-variant-caps: normal !important;
   -webkit-font-variant-caps: normal !important;
   text-transform: lowercase !important;
   letter-spacing: 0.02em;
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 600 !important;
+  font-size: 1.22rem;
   border-radius: 4px;
   transform: rotate(-3.5deg);
   user-select: none;
-  background: rgba(238, 232, 242, 0.25);
-  box-shadow: inset 0 0 0 1px rgba(94, 74, 104, 0.25);
+  background: rgba(244, 239, 248, 0.60);
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 0 1px rgba(88, 63, 107, 0.25), 0 2px 8px rgba(88, 63, 107, 0.08);
+  transition: transform var(--transition-calm), box-shadow var(--transition-calm);
+}
+
+.ink-stamp:hover {
+  transform: rotate(-2deg) scale(1.03);
+  box-shadow: inset 0 0 0 1px rgba(88, 63, 107, 0.35), 0 4px 14px rgba(88, 63, 107, 0.12);
 }
 
 .ink-stamp-circle {
   border-radius: 50%;
-  width: 82px;
-  height: 82px;
-  border: 2px dashed rgba(94, 74, 104, 0.65);
+  width: 86px;
+  height: 86px;
+  border: 2px dashed rgba(88, 63, 107, 0.75);
   text-align: center;
 }
 
@@ -559,14 +669,14 @@ h4 { font-size: 1.15rem; }
   align-items: flex-start;
   gap: 12px;
   padding: 8px 0;
-  font-size: 0.95rem;
+  font-size: 1.12rem;
   color: var(--ink-body);
 }
 
 .notebook-checkbox {
-  width: 17px;
-  height: 17px;
-  border: 1.5px solid rgba(108, 90, 115, 0.45);
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid rgba(88, 63, 107, 0.45);
   border-radius: 3px;
   display: inline-flex;
   align-items: center;
@@ -576,7 +686,7 @@ h4 { font-size: 1.15rem; }
   margin-top: 2px;
   transition: all var(--transition-calm);
   color: var(--ink-deep);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .notebook-checkbox.checked {
@@ -589,7 +699,7 @@ h4 { font-size: 1.15rem; }
    ========================================================================== */
 
 .notebook-section {
-  padding: 72px 0;
+  padding: 64px 0;
   position: relative;
 }
 
@@ -600,12 +710,13 @@ h4 { font-size: 1.15rem; }
 
 .notebook-page-marker {
   display: inline-block;
-  font-family: var(--font-handwriting) !important;
+  font-family: var(--font-heading) !important;
   font-variant-caps: normal !important;
   -webkit-font-variant-caps: normal !important;
   text-transform: lowercase !important;
   letter-spacing: 0.01em;
-  font-size: 1.15rem;
+  font-size: 1.18rem;
+  font-weight: 500 !important;
   color: var(--ink-muted);
   margin-bottom: 8px;
 }
@@ -616,10 +727,10 @@ h4 { font-size: 1.15rem; }
   height: 1px;
   background-image: linear-gradient(
     to right,
-    rgba(108, 90, 115, 0.05),
-    rgba(108, 90, 115, 0.22) 20%,
-    rgba(108, 90, 115, 0.22) 80%,
-    rgba(108, 90, 115, 0.05)
+    rgba(88, 63, 107, 0.04),
+    rgba(88, 63, 107, 0.22) 20%,
+    rgba(88, 63, 107, 0.22) 80%,
+    rgba(88, 63, 107, 0.04)
   );
   margin: 48px 0;
 }
@@ -628,10 +739,10 @@ h4 { font-size: 1.15rem; }
 .notebook-input {
   font-family: var(--font-handwriting) !important;
   background-color: var(--paper-clean);
-  border: 1px solid rgba(108, 90, 115, 0.22);
+  border: 1px solid rgba(88, 63, 107, 0.22);
   border-radius: var(--radius-paper);
-  padding: 6px 12px;
-  font-size: 1.15rem;
+  padding: 7px 14px;
+  font-size: 1.18rem;
   color: var(--ink-body);
   outline: none;
   transition: border-color var(--transition-calm), box-shadow var(--transition-calm);
@@ -640,55 +751,19 @@ h4 { font-size: 1.15rem; }
 
 .notebook-input:focus {
   border-color: var(--ink-primary);
-  box-shadow: 0 0 0 2px rgba(217, 205, 227, 0.35);
+  box-shadow: 0 0 0 3px rgba(88, 63, 107, 0.14);
 }
 
 .notebook-select {
   font-family: var(--font-handwriting) !important;
   background-color: var(--paper-clean);
-  border: 1px solid rgba(108, 90, 115, 0.22);
+  border: 1px solid rgba(88, 63, 107, 0.22);
   border-radius: var(--radius-paper);
-  padding: 6px 12px;
-  font-size: 1.15rem;
+  padding: 7px 14px;
+  font-size: 1.18rem;
   color: var(--ink-body);
   outline: none;
   cursor: pointer;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  :root {
-    --margin-offset: 32px;
-  }
-  
-  .notebook-content {
-    padding-left: calc(var(--margin-offset) + 16px);
-    padding-right: 18px;
-  }
-
-  .notebook-section {
-    padding: 44px 0;
-  }
-
-  .highlighter {
-    white-space: normal;
-  }
-}
-
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  .paper-note-tilted-left,
-  .paper-note-tilted-right,
-  .credential-badge-item {
-    transform: none !important;
-  }
 }
 
 /* ==========================================================================
@@ -698,7 +773,7 @@ h4 { font-size: 1.15rem; }
 @keyframes notebookViewEnter {
   from {
     opacity: 0;
-    transform: translateY(7px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -718,7 +793,7 @@ h4 { font-size: 1.15rem; }
 @keyframes notebookPaperFloatIn {
   from {
     opacity: 0;
-    transform: translateY(14px) scale(0.985);
+    transform: translateY(18px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -731,11 +806,36 @@ h4 { font-size: 1.15rem; }
 }
 
 .notebook-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(47, 33, 56, 0.40);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
   animation: notebookBackdropFade 0.22s ease-out forwards;
 }
 
 .notebook-modal-paper {
-  animation: notebookPaperFloatIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--paper-card);
+  backdrop-filter: var(--glass-blur-lg);
+  -webkit-backdrop-filter: var(--glass-blur-lg);
+  border: 1px solid rgba(88, 63, 107, 0.22);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow-weightless-lg), 0 0 40px rgba(47, 33, 56, 0.16);
+  padding: 28px;
+  animation: notebookPaperFloatIn 0.30s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .smooth-unit-pill {
@@ -748,3 +848,39 @@ h4 { font-size: 1.15rem; }
   transition: opacity 0.2s ease;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --margin-offset: 32px;
+  }
+  
+  .notebook-content {
+    padding-left: calc(var(--margin-offset) + 16px);
+    padding-right: 18px;
+  }
+
+  .notebook-section {
+    padding: 40px 0;
+  }
+
+  .highlighter {
+    white-space: normal;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .paper-note-tilted-left,
+  .paper-note-tilted-right,
+  .credential-badge-item,
+  .notebook-metric-card {
+    transform: none !important;
+  }
+}

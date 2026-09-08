@@ -29,6 +29,18 @@ from app.schemas.recruiter import (
     ApplicantDetail,
     ApplicationStatusUpdate,
 )
+from app.schemas.admin import (
+    SkillGapHeatmapItem,
+    HeatmapResponse,
+    PlacementFunnelItem,
+    PlacementFunnelResponse,
+    VerificationAction,
+    StudentVerificationResponse,
+    AdminNudgeItem,
+    AdminNudgesResponse,
+    AdminStudentMonitorItem,
+    AdminStudentsResponse,
+)
 
 __all__ = [
     "UserCreate",
@@ -53,5 +65,16 @@ __all__ = [
     "ApplicantSummary",
     "ApplicantDetail",
     "ApplicationStatusUpdate",
+    "SkillGapHeatmapItem",
+    "HeatmapResponse",
+    "PlacementFunnelItem",
+    "PlacementFunnelResponse",
+    "VerificationAction",
+    "StudentVerificationResponse",
+    "AdminNudgeItem",
+    "AdminNudgesResponse",
+    "AdminStudentMonitorItem",
+    "AdminStudentsResponse",
 ]
+
 

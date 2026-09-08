@@ -91,7 +91,7 @@ export const HandDrawnUnderline = ({ width = 140, height = 12, color = 'var(--in
   </svg>
 );
 
-export const NotebookPaperClip = ({ size = 28, color = 'rgba(108, 90, 115, 0.45)' }) => (
+export const NotebookPaperClip = ({ size = 28, color = 'rgba(88, 63, 107, 0.45)' }) => (
   <svg
     width={size}
     height={size * 1.8}

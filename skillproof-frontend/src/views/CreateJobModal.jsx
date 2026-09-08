@@ -22,6 +22,7 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
   const [description, setDescription] = useState('');
   const [selectedSkills, setSelectedSkills] = useState(['python', 'fastapi', 'postgresql']);
   const [selectedCategory, setSelectedCategory] = useState('Backend');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isOpen) return null;
 
@@ -50,21 +51,31 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
     ? `₹${thousandAmount.toLocaleString('en-IN')} / month`
     : customStipend;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || selectedSkills.length === 0) return;
+  const handleSubmit = async (e) => {
+    if (e?.preventDefault) e.preventDefault();
+    if (!title.trim() || selectedSkills.length === 0 || isSubmitting) return;
 
-    createJob({
-      title,
-      company,
-      type,
-      location,
-      stipend: currentStipendString,
-      description: description || 'Exciting engineering role working on core infrastructure and modern services.',
-      requiredSkills: selectedSkills
-    });
+    setIsSubmitting(true);
+    try {
+      await createJob({
+        title: title.trim(),
+        company: company.trim() || 'Acme Cloud Systems',
+        type,
+        location: location.trim() || 'Bangalore, India (Hybrid)',
+        stipend: currentStipendString,
+        description: (description || 'Exciting engineering role working on core infrastructure and modern services.').trim(),
+        required_skill_ids: selectedSkills,
+        requiredSkills: selectedSkills
+      });
 
-    onClose();
+      setTitle('');
+      setDescription('');
+      onClose();
+    } catch (err) {
+      console.error('Failed to publish job:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const skillDict = Object.fromEntries(allSkills.map(s => [s.id, s]));
@@ -207,7 +218,7 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
                           borderRadius: '3px',
                           fontSize: '0.72rem',
                           fontFamily: 'var(--font-handwriting)',
-                          fontWeight: compMode === 'thousands' ? 700 : 500,
+                          fontWeight: compMode === 'thousands' ? 600 : 400,
                           backgroundColor: compMode === 'thousands' ? 'var(--ink-deep)' : 'transparent',
                           color: compMode === 'thousands' ? 'var(--paper)' : 'var(--ink-muted)',
                           cursor: 'pointer'
@@ -225,7 +236,7 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
                           borderRadius: '3px',
                           fontSize: '0.72rem',
                           fontFamily: 'var(--font-handwriting)',
-                          fontWeight: compMode === 'lakhs' ? 700 : 500,
+                          fontWeight: compMode === 'lakhs' ? 600 : 400,
                           backgroundColor: compMode === 'lakhs' ? 'var(--ink-deep)' : 'transparent',
                           color: compMode === 'lakhs' ? 'var(--paper)' : 'var(--ink-muted)',
                           cursor: 'pointer'
@@ -243,7 +254,7 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
                           borderRadius: '3px',
                           fontSize: '0.72rem',
                           fontFamily: 'var(--font-handwriting)',
-                          fontWeight: compMode === 'custom' ? 700 : 500,
+                          fontWeight: compMode === 'custom' ? 600 : 400,
                           backgroundColor: compMode === 'custom' ? 'var(--ink-deep)' : 'transparent',
                           color: compMode === 'custom' ? 'var(--paper)' : 'var(--ink-muted)',
                           cursor: 'pointer'
@@ -274,7 +285,7 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
                     >
                       {/* Live Animated Number Representation */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
-                        <span style={{ fontFamily: 'var(--font-handwriting)', fontSize: '1.25rem', fontWeight: 700, color: 'var(--ink-deep)' }}>
+                        <span style={{ fontFamily: 'var(--font-handwriting)', fontSize: '1.25rem', fontWeight: 600, color: 'var(--ink-deep)' }}>
                           {compMode === 'thousands' ? (
                             <>
                               ₹<AnimatedNumber value={thousandAmount} format="currency-in" /> / month
@@ -486,8 +497,13 @@ export const CreateJobModal = ({ isOpen, onClose }) => {
               <NotebookButton variant="paper" onClick={onClose}>
                 cancel
               </NotebookButton>
-              <NotebookButton type="submit" variant="primary" disabled={selectedSkills.length === 0 || !title.trim()}>
-                publish job listing →
+              <NotebookButton
+                type="submit"
+                variant="primary"
+                onClick={handleSubmit}
+                disabled={selectedSkills.length === 0 || !title.trim() || isSubmitting}
+              >
+                {isSubmitting ? 'publishing...' : 'publish job listing →'}
               </NotebookButton>
             </div>
           </div>

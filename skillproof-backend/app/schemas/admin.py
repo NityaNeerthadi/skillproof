@@ -81,3 +81,31 @@ class AdminNudgesResponse(BaseModel):
     nudges: List[AdminNudgeItem] = Field(default_factory=list)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class AdminStudentMonitorItem(BaseModel):
+    student_id: str
+    name: str
+    email: str
+    department: Optional[str] = None
+    batch: Optional[str] = None
+    github_username: Optional[str] = None
+    github_verified: bool = False
+    trust_score: int = 85
+    verified_skills_count: int = 0
+    skills: List[str] = Field(default_factory=list)
+    applications_count: int = 0
+    placement_status: str = "seeking"  # "placed", "shortlisted", "applied", "seeking"
+    is_verified: bool = False
+    verification_notes: Optional[str] = None
+    verified_at: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminStudentsResponse(BaseModel):
+    total_count: int
+    students: List[AdminStudentMonitorItem] = Field(default_factory=list)
+
+    model_config = ConfigDict(from_attributes=True)
+
