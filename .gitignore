@@ -1,0 +1,43 @@
+# Python Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+.venv*/
+
+# Python Bytecode & Caching
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Environment variables & local secrets
+.env
+*.env.local
+*.env.*.local
+
+# Node.js & Frontend build artifacts
+node_modules/
+dist/
+dist-ssr/
+build/
+.next/
+*.log
+
+# Database files & temporary storage
+*.db
+*.sqlite
+*.sqlite3
+test_*.db
+
+# Temporary setup & package manifests
+global_packages.txt
+
+# OS Generated
+.DS_Store
+Thumbs.db
+Desktop.ini

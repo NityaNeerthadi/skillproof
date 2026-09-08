@@ -1,0 +1,26 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local Environment
+.env
+*.env.local
+
+# Databases & logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# Temp files
+global_packages.txt

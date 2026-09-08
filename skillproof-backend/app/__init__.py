@@ -1,0 +1,3 @@
+"""
+SkillProof Backend Application Package
+"""

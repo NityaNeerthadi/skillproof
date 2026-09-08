@@ -1,0 +1,22 @@
+{
+  "name": "skillproof",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm --prefix skillproof-frontend run dev",
+    "build": "npm --prefix skillproof-frontend run build",
+    "preview": "npm --prefix skillproof-frontend run preview",
+    "dev:frontend": "npm --prefix skillproof-frontend run dev",
+    "dev:backend": "cd skillproof-backend && uvicorn app.main:app --reload --port 8000"
+  },
+  "dependencies": {
+    "lucide-react": "^1.16.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.2.0"
+  }
+}
