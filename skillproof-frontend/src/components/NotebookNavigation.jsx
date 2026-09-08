@@ -97,10 +97,10 @@ export const NotebookNavigation = () => {
                     background: 'none',
                     border: 'none',
                     cursor: 'pointer',
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: '0.82rem',
+                    fontFamily: 'var(--font-handwriting)',
+                    fontSize: '1.2rem',
                     color: isActive ? 'var(--ink-deep)' : 'var(--ink-muted)',
-                    fontWeight: isActive ? 600 : 500,
+                    fontWeight: isActive ? 700 : 500,
                     letterSpacing: '0.02em',
                     transition: 'color var(--transition-calm)',
                     padding: '2px 0'
@@ -174,7 +174,7 @@ export const NotebookNavigation = () => {
                   border: 'none',
                   color: 'var(--ink-muted)',
                   cursor: 'pointer',
-                  fontSize: '0.72rem',
+                  fontSize: '1.05rem',
                   textDecoration: 'underline',
                   marginLeft: '4px'
                 }}
@@ -190,8 +190,8 @@ export const NotebookNavigation = () => {
                 background: 'none',
                 border: 'none',
                 cursor: 'pointer',
-                fontFamily: 'var(--font-ui)',
-                fontSize: '0.82rem',
+                fontFamily: 'var(--font-handwriting)',
+                fontSize: '1.2rem',
                 color: currentView === 'login' ? 'var(--ink-deep)' : 'var(--ink-primary)',
                 fontWeight: 600,
                 textDecoration: 'underline'
@@ -213,7 +213,7 @@ export const NotebookNavigation = () => {
               }
             }}
             className="notebook-btn notebook-btn-primary"
-            style={{ padding: '6px 14px', fontSize: '0.8rem' }}
+            style={{ padding: '6px 14px', fontSize: '1.15rem' }}
           >
             {currentUser ? 'open journal →' : 'get started →'}
           </button>

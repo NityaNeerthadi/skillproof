@@ -86,12 +86,12 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
           <SmallCapsHeading level={1} style={{ fontSize: '2rem', color: 'var(--ink-deep)' }}>
             {student?.name || 'Student Scholar'}
           </SmallCapsHeading>
-          <p style={{ fontSize: '0.86rem', color: 'var(--ink-muted)', marginTop: '2px' }}>
+          <p style={{ fontSize: '1.18rem', color: 'var(--ink-muted)', marginTop: '2px' }}>
             {student?.degree || 'Degree Program'} · {student?.year || 'Class of 2026'}
           </p>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '6px' }}>
-            <span style={{ fontSize: '0.78rem', color: 'var(--ink-deep)', fontWeight: 600 }}>
+            <span style={{ fontSize: '1.05rem', color: 'var(--ink-deep)', fontWeight: 600 }}>
               {student?.githubVerified ? '✓ github verified' : '△ github unverified'}
             </span>
             <button
@@ -103,8 +103,8 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
                 color: 'var(--ink-primary)',
                 textDecoration: 'underline',
                 cursor: 'pointer',
-                fontFamily: 'var(--font-ui)',
-                fontSize: '0.76rem'
+                fontFamily: 'var(--font-handwriting)',
+                fontSize: '1.05rem'
               }}
             >
               {student?.githubVerified ? 're-run audit →' : 'verify now →'}
@@ -120,7 +120,7 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '16px',
+          gap: '20px',
           marginBottom: '28px',
           borderBottom: '1px dashed rgba(108, 90, 115, 0.16)',
           paddingBottom: '6px'
@@ -133,10 +133,10 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.82rem',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
             color: activeTab === 'jobs' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'jobs' ? 600 : 400,
+            fontWeight: activeTab === 'jobs' ? 700 : 500,
             borderBottom: activeTab === 'jobs' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
@@ -151,10 +151,10 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.82rem',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
             color: activeTab === 'skills' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'skills' ? 600 : 400,
+            fontWeight: activeTab === 'skills' ? 700 : 500,
             borderBottom: activeTab === 'skills' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}
@@ -169,10 +169,10 @@ export const StudentDashboardView = ({ onOpenGithubAudit, onOpenJobApply }) => {
             background: 'none',
             border: 'none',
             cursor: 'pointer',
-            fontFamily: 'var(--font-ui)',
-            fontSize: '0.82rem',
+            fontFamily: 'var(--font-handwriting)',
+            fontSize: '1.25rem',
             color: activeTab === 'applications' ? 'var(--ink-deep)' : 'var(--ink-muted)',
-            fontWeight: activeTab === 'applications' ? 600 : 400,
+            fontWeight: activeTab === 'applications' ? 700 : 500,
             borderBottom: activeTab === 'applications' ? '2px solid var(--ink-deep)' : '2px solid transparent',
             paddingBottom: '6px'
           }}

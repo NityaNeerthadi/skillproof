@@ -28,8 +28,8 @@
   --pastel-pink: #EBDDE3;
   --pastel-green: #E0EBE2;
 
-  /* Typography */
-  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* Typography - Cursive Everywhere */
+  --font-ui: 'Caveat', 'Dancing Script', cursive;
   --font-handwriting: 'Caveat', 'Dancing Script', cursive;
   --font-cursive-accent: 'Dancing Script', cursive;
 
@@ -48,24 +48,30 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: var(--font-handwriting) !important;
 }
 
 html {
-  font-size: 16px;
+  font-size: 17.5px;
   scroll-behavior: smooth;
   background-color: var(--paper);
 }
 
 body {
-  font-family: var(--font-ui);
+  font-family: var(--font-handwriting) !important;
+  font-size: 1.12rem;
   color: var(--ink-body);
   background-color: var(--paper);
-  line-height: 1.65;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+}
+
+button, input, textarea, select, optgroup, span, p, a, h1, h2, h3, h4, h5, h6, label, div, table, tr, td, th, strong, em, b, i, small {
+  font-family: var(--font-handwriting) !important;
 }
 
 /* Continuous Global Notebook Lines & Paper Grain */
@@ -154,11 +160,12 @@ h4 { font-size: 1.15rem; }
 
 /* Refined Small UI Text (Delicate, Non-Shouting) */
 .small-caps {
-  font-variant-caps: all-small-caps;
-  -webkit-font-variant-caps: all-small-caps;
-  letter-spacing: 0.055em;
-  font-weight: 500;
-  font-size: 0.78rem;
+  font-family: var(--font-handwriting) !important;
+  font-variant-caps: normal;
+  -webkit-font-variant-caps: normal;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  font-size: 1.05rem;
   color: var(--ink-muted);
 }
 
@@ -264,13 +271,13 @@ h4 { font-size: 1.15rem; }
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-family: var(--font-ui);
-  font-variant-caps: all-small-caps;
-  -webkit-font-variant-caps: all-small-caps;
-  letter-spacing: 0.05em;
+  font-family: var(--font-handwriting) !important;
+  font-variant-caps: normal;
+  -webkit-font-variant-caps: normal;
+  letter-spacing: 0.02em;
   font-weight: 600;
-  font-size: 0.82rem;
-  padding: 7px 18px;
+  font-size: 1.15rem;
+  padding: 6px 18px;
   border-radius: var(--radius-paper);
   cursor: pointer;
   transition: all var(--transition-calm);
@@ -568,9 +575,11 @@ h4 { font-size: 1.15rem; }
 
 .notebook-page-marker {
   display: inline-block;
-  font-variant-caps: all-small-caps;
-  letter-spacing: 0.14em;
-  font-size: 0.8rem;
+  font-family: var(--font-handwriting) !important;
+  font-variant-caps: normal;
+  -webkit-font-variant-caps: normal;
+  letter-spacing: 0.02em;
+  font-size: 1.12rem;
   color: var(--ink-muted);
   margin-bottom: 8px;
 }
@@ -591,12 +600,12 @@ h4 { font-size: 1.15rem; }
 
 /* Form Inputs within Notebook */
 .notebook-input {
-  font-family: var(--font-ui);
+  font-family: var(--font-handwriting) !important;
   background-color: var(--paper-clean);
   border: 1px solid rgba(108, 90, 115, 0.22);
   border-radius: var(--radius-paper);
-  padding: 8px 12px;
-  font-size: 0.86rem;
+  padding: 6px 12px;
+  font-size: 1.15rem;
   color: var(--ink-body);
   outline: none;
   transition: border-color var(--transition-calm), box-shadow var(--transition-calm);
@@ -609,12 +618,12 @@ h4 { font-size: 1.15rem; }
 }
 
 .notebook-select {
-  font-family: var(--font-ui);
+  font-family: var(--font-handwriting) !important;
   background-color: var(--paper-clean);
   border: 1px solid rgba(108, 90, 115, 0.22);
   border-radius: var(--radius-paper);
-  padding: 7px 10px;
-  font-size: 0.84rem;
+  padding: 6px 12px;
+  font-size: 1.15rem;
   color: var(--ink-body);
   outline: none;
   cursor: pointer;
